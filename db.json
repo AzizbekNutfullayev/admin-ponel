@@ -1,0 +1,120 @@
+{
+  "transactions": [
+    { "day": "1-kun", "value": 400 },
+    { "day": "5-kun", "value": 300 },
+    { "day": "10-kun", "value": 500 },
+    { "day": "15-kun", "value": 700 },
+    { "day": "20-kun", "value": 200 },
+    { "day": "25-kun", "value": 600 },
+    { "day": "30-kun", "value": 800 }
+  ],
+  "brands": [
+    { "name": "Mahsulot A", "value": 10 },
+    { "name": "Mahsulot B", "value": 25 },
+    { "name": "Mahsulot C", "value": 20 },
+    { "name": "Mahsulot D", "value": 15 },
+    { "name": "Mahsulot E", "value": 5 }
+  ],
+  "regions": [
+    { "name": "Toshkent", "value": 90 },
+    { "name": "Samarqand", "value": 60 },
+    { "name": "Buxoro", "value": 50 },
+    { "name": "Farg'ona", "value": 80 },
+    { "name": "Andijon", "value": 70 }
+  ],
+  "months": [
+    { "name": "Yanvar", "value": 50 },
+    { "name": "Fevral", "value": 40 },
+    { "name": "Mart", "value": 70 },
+    { "name": "Aprel", "value": 60 },
+    { "name": "May", "value": 90 },
+    { "name": "Iyun", "value": 100 },
+    { "name": "Iyul", "value": 80 }
+  ],
+  "users": [
+    { "id": 1, "name": "Ali", "email": "ali@example.com", "role": "admin" },
+    { "id": 2, "name": "Vali", "email": "vali@example.com", "role": "user" },
+    { "id": 3, "name": "Hasan", "email": "hasan@example.com", "role": "manager" }
+  ],
+
+"clients": [
+  {
+    "id": 1,
+    "name": "Toshmat",
+    "phone": "+998901112233",
+    "companyId": 1,
+    "companyName": "AvtoTuning",
+    "status": "Faol",
+    "image": "https://randomuser.me/api/portraits/men/11.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Eshmat",
+    "phone": "+998909998877",
+    "companyId": 2,
+    "companyName": "AvtoDetal",
+    "status": "Nofaol",
+    "image": "https://randomuser.me/api/portraits/women/21.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Vali",
+    "phone": "+998933334455",
+    "companyId": 1,
+    "companyName": " AvtoServis",
+    "status": "Faol",
+    "image": "https://randomuser.me/api/portraits/men/31.jpg"
+  }
+]
+,
+
+  "companies": [
+  { 
+    "id": 1, 
+    "name": "AvtoDetal", 
+    "subscription": "Premium", 
+    "employees": 15, 
+    "status": "Faol", 
+    "lastActive": "2 soat oldin" 
+  },
+  { 
+    "id": 2, 
+    "name": "AvtoServis", 
+    "subscription": "Standart", 
+    "employees": 8, 
+    "status": "Nofaol", 
+    "lastActive": "1 hafta oldin" 
+  },
+  { 
+    "id": 3, 
+    "name": "AvtoMarket", 
+    "subscription": "Basic", 
+    "employees": 5, 
+    "status": "Faol", 
+    "lastActive": "1 kun oldin" 
+  },
+  { 
+    "id": 4, 
+    "name": "AvtoTuning", 
+    "subscription": "Premium", 
+    "employees": 12, 
+    "status": "Faol", 
+    "lastActive": "3 soat oldin" 
+  },
+  { 
+    "id": 5, 
+    "name": "AvtoSalon", 
+    "subscription": "Standart", 
+    "employees": 10, 
+    "status": "Nofaol", 
+    "lastActive": "2 hafta oldin" 
+  }
+]
+,
+  "products": [
+    { "id": 1, "name": "Laptop", "price": 1200, "stock": 15 },
+    { "id": 2, "name": "Smartphone", "price": 800, "stock": 30 },
+    { "id": 3, "name": "Monitor", "price": 300, "stock": 20 },
+    { "id": 4, "name": "Printer", "price": 200, "stock": 10 }
+  ]
+}
