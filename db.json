@@ -1,120 +1,432 @@
 {
-  "transactions": [
-    { "day": "1-kun", "value": 400 },
-    { "day": "5-kun", "value": 300 },
-    { "day": "10-kun", "value": 500 },
-    { "day": "15-kun", "value": 700 },
-    { "day": "20-kun", "value": 200 },
-    { "day": "25-kun", "value": 600 },
-    { "day": "30-kun", "value": 800 }
-  ],
-  "brands": [
-    { "name": "Mahsulot A", "value": 10 },
-    { "name": "Mahsulot B", "value": 25 },
-    { "name": "Mahsulot C", "value": 20 },
-    { "name": "Mahsulot D", "value": 15 },
-    { "name": "Mahsulot E", "value": 5 }
-  ],
-  "regions": [
-    { "name": "Toshkent", "value": 90 },
-    { "name": "Samarqand", "value": 60 },
-    { "name": "Buxoro", "value": 50 },
-    { "name": "Farg'ona", "value": 80 },
-    { "name": "Andijon", "value": 70 }
-  ],
-  "months": [
-    { "name": "Yanvar", "value": 50 },
-    { "name": "Fevral", "value": 40 },
-    { "name": "Mart", "value": 70 },
-    { "name": "Aprel", "value": 60 },
-    { "name": "May", "value": 90 },
-    { "name": "Iyun", "value": 100 },
-    { "name": "Iyul", "value": 80 }
+  "dashboard": {
+    "stats": {
+      "companies": 5,
+      "activeUsers": 120,
+      "transactions": 3500,
+      "salesVolume": 150000,
+      "subscriptions": {
+        "active": 80,
+        "expired": 10,
+        "trial": 5
+      }
+    },
+    "realtime": {
+      "onlineUsers": 25,
+      "salesToday": 45,
+      "subscriptionPayments": 12
+    },
+    "aiInsights": {
+      "topSellers": [
+        "Smartphone",
+        "Laptop"
+      ],
+      "mostDemanded": [
+        "iPhone 15 Pro Max",
+        "Monitor"
+      ],
+      "decliningSales": [
+        "Printer"
+      ]
+    },
+    "reminders": [
+      {
+        "type": "subscription",
+        "message": "AvtoServis obunasi 3 kunda tugaydi"
+      },
+      {
+        "type": "maintenance",
+        "message": "Texnik xizmat payshanba kuni bo‘ladi"
+      }
+    ]
+  },
+  "companies": [
+    {
+      "id": "1",
+      "name": "AvtoDetal",
+      "subscription": "Premium",
+      "employees": 15,
+      "status": "Faol",
+      "lastActive": "2 soat oldin",
+      "score": 85
+    },
+    {
+      "id": "2",
+      "name": "AvtoServis",
+      "subscription": "Standart",
+      "employees": 8,
+      "status": "Nofaol",
+      "lastActive": "1 hafta oldin",
+      "score": 60
+    },
+    {
+      "id": "3",
+      "name": "AvtoMarket",
+      "subscription": "Basic",
+      "employees": 5,
+      "status": "Faol",
+      "lastActive": "1 kun oldin",
+      "score": 50
+    },
+    {
+      "id": "4",
+      "name": "AvtoTuning",
+      "subscription": "Premium",
+      "employees": 12,
+      "status": "Faol",
+      "lastActive": "3 soat oldin",
+      "score": 90
+    },
+    {
+      "id": "5",
+      "name": "AvtoSalon",
+      "subscription": "Standart",
+      "employees": 10,
+      "status": "Nofaol",
+      "lastActive": "2 hafta oldin",
+      "score": 40
+    },
+    {
+      "id": "b25c",
+      "name": "",
+      "subscription": "Basic",
+      "employees": 0,
+      "status": "Faol",
+      "lastActive": "Hozir"
+    }
   ],
   "users": [
-    { "id": 1, "name": "Ali", "email": "ali@example.com", "role": "admin" },
-    { "id": 2, "name": "Vali", "email": "vali@example.com", "role": "user" },
-    { "id": 3, "name": "Hasan", "email": "hasan@example.com", "role": "manager" }
+    {
+      "id": "1",
+      "name": "Ali",
+      "email": "ali@example.com",
+      "role": "admin",
+      "logs": [
+        "Login - 10:00",
+        "Mahsulot qo‘shildi - 10:15"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Vali",
+      "email": "vali@example.com",
+      "role": "user",
+      "logs": [
+        "Login - 09:00"
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Hasan",
+      "email": "hasan@example.com",
+      "role": "manager",
+      "logs": [
+        "Login - 11:00",
+        "Obuna yangilandi - 11:30"
+      ]
+    }
   ],
-
-"clients": [
-  {
-    "id": 1,
-    "name": "Toshmat",
-    "phone": "+998901112233",
-    "companyId": 1,
-    "companyName": "AvtoTuning",
-    "status": "Faol",
-    "image": "https://randomuser.me/api/portraits/men/11.jpg"
-  },
-  {
-    "id": 2,
-    "name": "Eshmat",
-    "phone": "+998909998877",
-    "companyId": 2,
-    "companyName": "AvtoDetal",
-    "status": "Nofaol",
-    "image": "https://randomuser.me/api/portraits/women/21.jpg"
-  },
-  {
-    "id": 3,
-    "name": "Vali",
-    "phone": "+998933334455",
-    "companyId": 1,
-    "companyName": " AvtoServis",
-    "status": "Faol",
-    "image": "https://randomuser.me/api/portraits/men/31.jpg"
-  }
-]
-,
-
-  "companies": [
-  { 
-    "id": 1, 
-    "name": "AvtoDetal", 
-    "subscription": "Premium", 
-    "employees": 15, 
-    "status": "Faol", 
-    "lastActive": "2 soat oldin" 
-  },
-  { 
-    "id": 2, 
-    "name": "AvtoServis", 
-    "subscription": "Standart", 
-    "employees": 8, 
-    "status": "Nofaol", 
-    "lastActive": "1 hafta oldin" 
-  },
-  { 
-    "id": 3, 
-    "name": "AvtoMarket", 
-    "subscription": "Basic", 
-    "employees": 5, 
-    "status": "Faol", 
-    "lastActive": "1 kun oldin" 
-  },
-  { 
-    "id": 4, 
-    "name": "AvtoTuning", 
-    "subscription": "Premium", 
-    "employees": 12, 
-    "status": "Faol", 
-    "lastActive": "3 soat oldin" 
-  },
-  { 
-    "id": 5, 
-    "name": "AvtoSalon", 
-    "subscription": "Standart", 
-    "employees": 10, 
-    "status": "Nofaol", 
-    "lastActive": "2 hafta oldin" 
-  }
-]
-,
+  "clients": [
+    {
+      "id": "1",
+      "name": "Toshmat",
+      "phone": "+998901112233",
+      "companyId": 1,
+      "companyName": "AvtoTuning",
+      "status": "Faol",
+      "image": "https://randomuser.me/api/portraits/men/11.jpg"
+    },
+    {
+      "id": "2",
+      "name": "Eshmat",
+      "phone": "+998909998877",
+      "companyId": 2,
+      "companyName": "AvtoDetal",
+      "status": "Nofaol",
+      "image": "https://randomuser.me/api/portraits/women/21.jpg"
+    },
+    {
+      "id": "3",
+      "name": "Vali",
+      "phone": "+998933334455",
+      "companyId": 1,
+      "companyName": "AvtoServis",
+      "status": "Faol",
+      "image": "https://randomuser.me/api/portraits/men/31.jpg"
+    }
+  ],
   "products": [
-    { "id": 1, "name": "Laptop", "price": 1200, "stock": 15 },
-    { "id": 2, "name": "Smartphone", "price": 800, "stock": 30 },
-    { "id": 3, "name": "Monitor", "price": 300, "stock": 20 },
-    { "id": 4, "name": "Printer", "price": 200, "stock": 10 }
-  ]
+    {
+      "id": "1",
+      "name": "Laptop",
+      "price": 1200,
+      "stock": 15
+    },
+    {
+      "id": "2",
+      "name": "Smartphone",
+      "price": 800,
+      "stock": 30
+    },
+    {
+      "id": "3",
+      "name": "Monitor",
+      "price": 300,
+      "stock": 20
+    },
+    {
+      "id": "4",
+      "name": "Printer",
+      "price": 200,
+      "stock": 10
+    }
+  ],
+  "productMasterLibrary": [
+    {
+      "barcode": "123456789",
+      "name": "iPhone 15 Pro Max Green 256GB",
+      "brand": "Apple",
+      "color": "Green",
+      "memory": "256GB",
+      "id": "78c3"
+    },
+    {
+      "barcode": "987654321",
+      "name": "Samsung Galaxy S24 Ultra 512GB",
+      "brand": "Samsung",
+      "color": "Black",
+      "memory": "512GB",
+      "id": "307a"
+    }
+  ],
+  "transactions": [
+    {
+      "day": "1-kun",
+      "value": 400,
+      "id": "4ee8"
+    },
+    {
+      "day": "5-kun",
+      "value": 300,
+      "id": "9d48"
+    },
+    {
+      "day": "10-kun",
+      "value": 500,
+      "id": "8561"
+    },
+    {
+      "day": "15-kun",
+      "value": 700,
+      "id": "7649"
+    },
+    {
+      "day": "20-kun",
+      "value": 200,
+      "id": "b8a6"
+    },
+    {
+      "day": "25-kun",
+      "value": 600,
+      "id": "287e"
+    },
+    {
+      "day": "30-kun",
+      "value": 800,
+      "id": "0e62"
+    }
+  ],
+  "statistics": {
+    "brands": [
+      {
+        "name": "Mahsulot A",
+        "value": 10
+      },
+      {
+        "name": "Mahsulot B",
+        "value": 25
+      },
+      {
+        "name": "Mahsulot C",
+        "value": 20
+      },
+      {
+        "name": "Mahsulot D",
+        "value": 15
+      },
+      {
+        "name": "Mahsulot E",
+        "value": 5
+      }
+    ],
+    "regions": [
+      {
+        "name": "Toshkent",
+        "value": 90
+      },
+      {
+        "name": "Samarqand",
+        "value": 60
+      },
+      {
+        "name": "Buxoro",
+        "value": 50
+      },
+      {
+        "name": "Farg'ona",
+        "value": 80
+      },
+      {
+        "name": "Andijon",
+        "value": 70
+      }
+    ],
+    "months": [
+      {
+        "name": "Yanvar",
+        "value": 50
+      },
+      {
+        "name": "Fevral",
+        "value": 40
+      },
+      {
+        "name": "Mart",
+        "value": 70
+      },
+      {
+        "name": "Aprel",
+        "value": 60
+      },
+      {
+        "name": "May",
+        "value": 90
+      },
+      {
+        "name": "Iyun",
+        "value": 100
+      },
+      {
+        "name": "Iyul",
+        "value": 80
+      }
+    ],
+    "aiForecast": [
+      {
+        "region": "Toshkent",
+        "predictedProduct": "Smartphone",
+        "expectedSales": 120
+      },
+      {
+        "region": "Samarqand",
+        "predictedProduct": "Laptop",
+        "expectedSales": 75
+      }
+    ]
+  },
+  "subscriptions": [
+    {
+      "companyId": 1,
+      "plan": "Premium",
+      "status": "Active",
+      "renewalDate": "2025-09-15",
+      "revenue": 1200,
+      "id": "4ecb"
+    },
+    {
+      "companyId": 2,
+      "plan": "Standart",
+      "status": "Expired",
+      "renewalDate": "2025-08-01",
+      "revenue": 600,
+      "id": "e9c3"
+    },
+    {
+      "companyId": 3,
+      "plan": "Basic",
+      "status": "Active",
+      "renewalDate": "2025-09-20",
+      "revenue": 300,
+      "id": "fb74"
+    }
+  ],
+  "monitoring": {
+    "onlineUsers": 25,
+    "transactionRate": "50 ops/sec",
+    "alerts": [
+      {
+        "type": "fraud",
+        "message": "Kassir #12 tomonidan 10 ta qaytarilgan tranzaksiya"
+      },
+      {
+        "type": "server",
+        "message": "DB server 80% RAM ishlatyapti"
+      }
+    ]
+  },
+  "support": {
+    "tickets": [
+      {
+        "id": 1,
+        "company": "AvtoDetal",
+        "issue": "To‘lov ishlamayapti",
+        "status": "Open"
+      },
+      {
+        "id": 2,
+        "company": "AvtoServis",
+        "issue": "Login muammosi",
+        "status": "Closed"
+      }
+    ],
+    "chat": [
+      {
+        "from": "Ali",
+        "message": "Salom, yordam kerak!",
+        "time": "10:00"
+      }
+    ]
+  },
+  "admins": [
+    {
+      "id": "1",
+      "name": "SuperAdmin",
+      "role": "full",
+      "logs": [
+        "Obuna boshqarildi - 09:00"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "Moderator",
+      "role": "statistics",
+      "logs": [
+        "Statistika hisobot yaratildi - 11:00"
+      ]
+    }
+  ],
+  "settings": {
+    "languages": [
+      "UZ",
+      "RU",
+      "EN"
+    ],
+    "paymentIntegrations": [
+      "Payme",
+      "Click",
+      "Stripe",
+      "PayPal"
+    ],
+    "security": [
+      "2FA",
+      "SMS OTP",
+      "Email OTP"
+    ],
+    "apiIntegrations": [
+      "CRM",
+      "ERP"
+    ],
+    "theme": "dark",
+    "language": "ru"
+  }
 }

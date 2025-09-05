@@ -16,39 +16,49 @@ import {
 } from "recharts";
 
 export default function Statistica() {
-  const [transactions, setTransactions] = useState([]);
-  const [brands, setBrands] = useState([]);
-  const [regions, setRegions] = useState([]);
-  const [months, setMonths] = useState([]);
-  const [users, setUsers] = useState([]);
-  const [clients, setClients] = useState([]);
-  const [companies, setCompanies] = useState([]);
-  const [products, setProducts] = useState([]);
+  const [statistics, setStatistics] = useState({
+    transactions: [],
+    brands: [],
+    regions: [],
+    months: [],
+    users: [],
+    clients: [],
+    companies: [],
+    products: [],
+  });
 
   useEffect(() => {
-    axios.get("http://localhost:5000/transactions").then((res) => setTransactions(res.data));
-    axios.get("http://localhost:5000/brands").then((res) => setBrands(res.data));
-    axios.get("http://localhost:5000/regions").then((res) => setRegions(res.data));
-    axios.get("http://localhost:5000/months").then((res) => setMonths(res.data));
-    axios.get("http://localhost:5000/users").then((res) => setUsers(res.data));
-    axios.get("http://localhost:5000/clients").then((res) => setClients(res.data));
-    axios.get("http://localhost:5000/companies").then((res) => setCompanies(res.data));
-    axios.get("http://localhost:5000/products").then((res) => setProducts(res.data));
+    axios
+      .get("http://localhost:5000/statistics")
+      .then((res) => {
+        console.log("API javobi:", res.data);
+        setStatistics({
+          transactions: res.data.transactions || [],
+          brands: res.data.brands || [],
+          regions: res.data.regions || [],
+          months: res.data.months || [],
+          users: res.data.users || [],
+          clients: res.data.clients || [],
+          companies: res.data.companies || [],
+          products: res.data.products || [],
+        });
+      })
+      .catch((err) => console.error("Xatolik:", err));
   }, []);
 
   const COLORS = ["#6366F1", "#16A34A", "#DC2626", "#FACC15", "#0EA5E9"];
 
   return (
     <div className="dashboard">
-      <h2 className="dashboard__title">Statistika Paneli</h2>
+      <h2 className="dashboard__title">📊 Statistika Paneli</h2>
 
-      {/* Charts qismi */}
+      {/* Grafiklar */}
       <div className="charts-grid">
         {/* Transactions */}
         <div className="card">
           <h3>Tranzaksiyalar</h3>
           <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={transactions}>
+            <LineChart data={statistics.transactions}>
               <XAxis dataKey="day" />
               <YAxis />
               <Tooltip />
@@ -64,13 +74,13 @@ export default function Statistica() {
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
               <Pie
-                data={brands}
+                data={statistics.brands}
                 dataKey="value"
                 nameKey="name"
                 outerRadius={100}
                 label
               >
-                {brands.map((_, i) => (
+                {statistics.brands?.map((_, i) => (
                   <Cell key={i} fill={COLORS[i % COLORS.length]} />
                 ))}
               </Pie>
@@ -83,7 +93,7 @@ export default function Statistica() {
         <div className="card">
           <h3>Hududlar bo‘yicha faoliyat</h3>
           <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={regions}>
+            <BarChart data={statistics.regions}>
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
@@ -96,7 +106,7 @@ export default function Statistica() {
         <div className="card">
           <h3>Oylik ko‘rsatkichlar</h3>
           <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={months}>
+            <LineChart data={statistics.months}>
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
@@ -106,7 +116,7 @@ export default function Statistica() {
         </div>
       </div>
 
-      {/* Jadval qismi */}
+      {/* Jadvallar */}
       <div className="tables-grid">
         {/* Users */}
         <div className="card">
@@ -119,12 +129,18 @@ export default function Statistica() {
               </tr>
             </thead>
             <tbody>
-              {users.map((u) => (
-                <tr key={u.id}>
-                  <td>{u.name}</td>
-                  <td>{u.email}</td>
+              {statistics.users?.length > 0 ? (
+                statistics.users.map((u) => (
+                  <tr key={u.id}>
+                    <td>{u.name}</td>
+                    <td>{u.email}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="2">Ma’lumot yo‘q</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
@@ -141,13 +157,19 @@ export default function Statistica() {
               </tr>
             </thead>
             <tbody>
-              {clients.map((c) => (
-                <tr key={c.id}>
-                  <td>{c.name}</td>
-                  <td>{c.phone}</td>
-                  <td>{c.companyName}</td>
+              {statistics.clients?.length > 0 ? (
+                statistics.clients.map((c) => (
+                  <tr key={c.id}>
+                    <td>{c.name}</td>
+                    <td>{c.phone}</td>
+                    <td>{c.companyName}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="3">Ma’lumot yo‘q</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
@@ -163,12 +185,18 @@ export default function Statistica() {
               </tr>
             </thead>
             <tbody>
-              {companies.map((c) => (
-                <tr key={c.id}>
-                  <td>{c.name}</td>
-                  <td>{c.status}</td>
+              {statistics.companies?.length > 0 ? (
+                statistics.companies.map((c) => (
+                  <tr key={c.id}>
+                    <td>{c.name}</td>
+                    <td>{c.status}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="2">Ma’lumot yo‘q</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
@@ -184,12 +212,18 @@ export default function Statistica() {
               </tr>
             </thead>
             <tbody>
-              {products.map((p) => (
-                <tr key={p.id}>
-                  <td>{p.name}</td>
-                  <td>{p.price} so‘m</td>
+              {statistics.products?.length > 0 ? (
+                statistics.products.map((p) => (
+                  <tr key={p.id}>
+                    <td>{p.name}</td>
+                    <td>{p.price} so‘m</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="2">Ma’lumot yo‘q</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>
@@ -197,14 +231,3 @@ export default function Statistica() {
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-

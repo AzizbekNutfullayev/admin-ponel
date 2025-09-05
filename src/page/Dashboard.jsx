@@ -5,27 +5,66 @@ import {
   BarChart, Bar
 } from "recharts";
 
-
 export default function Dashboard() {
   const [transactions, setTransactions] = useState([]);
-  const [brands, setBrands] = useState([]);
-  const [regions, setRegions] = useState([]);
-  const [months, setMonths] = useState([]);
+  const [statistics, setStatistics] = useState({});
+  const [subscriptions, setSubscriptions] = useState([]);
+  const [monitoring, setMonitoring] = useState({});
+  const [support, setSupport] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:5000/transactions").then(res => setTransactions(res.data));
-    axios.get("http://localhost:5000/brands").then(res => setBrands(res.data));
-    axios.get("http://localhost:5000/regions").then(res => setRegions(res.data));
-    axios.get("http://localhost:5000/months").then(res => setMonths(res.data));
+    axios.get("http://localhost:5000/statistics").then(res => setStatistics(res.data));
+    axios.get("http://localhost:5000/subscriptions").then(res => setSubscriptions(res.data));
+    axios.get("http://localhost:5000/monitoring").then(res => setMonitoring(res.data));
   }, []);
+  useEffect(() => {
+    axios.get("http://localhost:5000/support").then(res => {
+      if (Array.isArray(res.data)) {
+        setSupport(res.data); // to‘g‘ridan-to‘g‘ri massiv
+      } else if (Array.isArray(res.data.tickets)) {
+        setSupport(res.data.tickets); // tickets ichida massiv bo‘lsa
+      } else {
+        setSupport([]); // boshqa holat bo‘lsa bo‘sh massiv
+      }
+    }).catch(() => setSupport([]));
+  }, []);
+
 
   return (
     <div className="dashboard-grid">
-      {/* Line Chart */}
+      {/* Dashboard umumiy ko‘rsatkichlari */}
+      <div className="card stats-card">
+        <h3>Asosiy ko‘rsatkichlar</h3>
+        <div className="stats-grid">
+          <div className="stat-box">
+            <span>Kompaniyalar</span>
+            <strong>{statistics.totalCompanies || 0}</strong>
+          </div>
+          <div className="stat-box">
+            <span>Foydalanuvchilar</span>
+            <strong>{statistics.activeUsers || 0}</strong>
+          </div>
+          <div className="stat-box">
+            <span>Tranzaksiyalar</span>
+            <strong>{statistics.totalTransactions || 0}</strong>
+          </div>
+          <div className="stat-box">
+            <span>Sotuv hajmi</span>
+            <strong>${statistics.salesVolume || 0}</strong>
+          </div>
+          <div className="stat-box">
+            <span>Obunalar</span>
+            <strong>{statistics.activeSubscriptions || 0}</strong>
+          </div>
+        </div>
+      </div>
+
+      {/* Transactions - Line Chart */}
       <div className="card">
-        <h3>Kunlik/Oylik tranzaksiyalar</h3>
-        <p>Oxirgi 30 kun <span className="green">+15%</span></p>
-        <ResponsiveContainer width="100%" height={200}>
+        <h3>Tranzaksiyalar oqimi</h3>
+        <p>Oxirgi 30 kun</p>
+        <ResponsiveContainer width="100%" height={250}>
           <LineChart data={transactions}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="day" />
@@ -36,47 +75,50 @@ export default function Dashboard() {
         </ResponsiveContainer>
       </div>
 
-      {/* Bar Chart - Brands */}
+      {/* Subscriptions - Bar Chart */}
       <div className="card">
-        <h3>Brendlar bo‘yicha taqsimot</h3>
-        <p>Joriy yil <span className="red">-5%</span></p>
-        <ResponsiveContainer width="100%" height={200}>
-          <BarChart data={brands}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+        <h3>Obunalar turlari</h3>
+        <p>Joriy yil</p>
+        <ResponsiveContainer width="100%" height={250}>
+          <BarChart data={subscriptions}>
+            <CartesianGrid
+              strokeDasharray="3 3" />
+            <XAxis dataKey="plan" />
             <YAxis />
             <Tooltip />
-            <Bar dataKey="value" fill="#6366F1" />
+            <Bar dataKey="count" fill="#22C55E" />
           </BarChart>
         </ResponsiveContainer>
       </div>
 
-      {/* Regions */}
+      {/* Monitoring */}
       <div className="card">
-        <h3>TOP mahsulotlar</h3>
-        <p>Joriy oy <span className="green">+10%</span></p>
-        {regions.map((r, i) => (
-          <div key={i} className="progress-row">
-            <span>{r.name}</span>
-            <div className="progress-bar">
-              <div className="progress-fill" style={{ width: `${r.value}%` }}></div>
-            </div>
-          </div>
-        ))}
+        <h3>Monitoring</h3>
+        <ul className="monitor-list">
+          <li>Onlayn foydalanuvchilar: <strong>{monitoring.onlineUsers || 0}</strong></li>
+          <li>Tranzaksiya tezligi: <strong>{monitoring.tps || 0} / sec</strong></li>
+          <li>Server yuklanishi: <strong>{monitoring.serverLoad || "N/A"}%</strong></li>
+          <li>Shubhali harakatlar: <strong>{monitoring.suspicious || 0}</strong></li>
+        </ul>
       </div>
 
-      {/* Months */}
+      {/* Support */}
       <div className="card">
-        <h3>Hududlar bo‘yicha sotuvlar</h3>
-        <p>Joriy yil <span className="green">+20%</span></p>
-        {months.map((m, i) => (
-          <div key={i} className="progress-row">
-            <span>{m.name}</span>
-            <div className="progress-bar">
-              <div className="progress-fill green-bg" style={{ width: `${m.value}%` }}></div>
-            </div>
-          </div>
-        ))}
+        <h3>Qo‘llab-quvvatlash (so‘nggi ticketlar)</h3>
+        <ul className="support-list">
+          {Array.isArray(support) && support.length > 0 ? (
+            support.slice(0, 5).map((ticket) => (
+              <li key={ticket.id}>
+                <span>{ticket.companyName}</span> – {ticket.issue}
+                <span className={`status ${ticket.status?.toLowerCase()}`}>
+                  {ticket.status}
+                </span>
+              </li>
+            ))
+          ) : (
+            <li>Hozircha ticketlar yo‘q</li>
+          )}
+        </ul>
       </div>
     </div>
   );
