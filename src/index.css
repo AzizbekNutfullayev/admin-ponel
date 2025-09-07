@@ -250,6 +250,7 @@
 
 /* saide bar  */
 
+/* Sidebar asosiy */
 .sidebar {
   width: 240px;
   height: 100vh;
@@ -260,6 +261,10 @@
   transition: all 0.3s ease;
 }
 
+/* Collapse bo'lganda */
+.sidebar.collapsed {
+  width: 70px;
+}
 
 /* Header */
 .sidebar-header {
@@ -382,26 +387,32 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .sidebar {
-    position: absolute;
-    z-index: 1000;
-    height: 100%;
-    left: -240px;
+    width: 200px;
   }
-  .sidebar.open {
-    left: 0;
+  .sidebar.collapsed {
+    width: 60px;
   }
 }
-@media (max-width: 450px) {
+
+/* 480px dan kichik ekranlarda ham ko‘rinib turishi uchun */
+@media (max-width: 480px) {
   .sidebar {
-    position: absolute;
-    z-index: 1000;
-    height: 100%;
-    left: -240px;
+    width: 180px;
   }
-  .sidebar.open {
-    left: 0;
+  .sidebar.collapsed {
+    width: 55px;
+  }
+}
+
+/* 380px dan kichik ekranlarda ham yo‘qolmasin */
+@media (max-width: 380px) {
+  .sidebar {
+    width: 150px;
+  }
+  .sidebar.collapsed {
+    width: 50px;
   }
 }
 
@@ -521,114 +532,122 @@
   
 
   /* companiya */
-
-  /* Page wrapper */
-.companies {
-  padding: 16px;
-}
-
-/* Title */
-.companies__title {
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-
-/* Filters */
-.companies__filters {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-}
-
-.btn {
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background: #f9f9f9;
-  cursor: pointer;
-  font-size: 14px;
-}
-.btn--active {
-  background: #007bff;
-  color: #fff;
-  border-color: #007bff;
-}
-
-/* Table wrapper */
-.table-wrap {
-  overflow-x: auto;
-}
-
-/* Table */
-.table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.table th,
-.table td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  font-size: 14px;
-  text-align: left;
-}
-
-.table th {
-  background: #f5f5f5;
-  font-weight: 600;
-}
-
-.link {
-  background: none;
-  border: none;
-  color: #007bff;
-  cursor: pointer;
-  font-size: 13px;
-}
-.link--red {
-  color: #dc3545;
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 1024px) {
-  .companies__title {
-    font-size: 20px;
-  }
-  .table th,
-  .table td {
-    font-size: 13px;
-    padding: 8px;
-  }
-}
-
-@media (max-width: 768px) {
   .companies {
-    padding: 10px;
+    padding: 16px;
   }
-  .companies__filters {
-    gap: 6px;
-  }
-  .btn {
-    font-size: 12px;
-    padding: 5px 10px;
-  }
-}
-
-@media (max-width: 480px) {
+  
   .companies__title {
-    font-size: 18px;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 12px;
   }
+  
+  .companies__filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  
+  .btn {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #f9f9f9;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .btn--active {
+    background: #007bff;
+    color: #fff;
+    border-color: #007bff;
+  }
+  
+  .table-wrap {
+    overflow-x: auto;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
   .table th,
   .table td {
-    font-size: 12px;
-    padding: 6px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    text-align: left;
   }
-}
-
-
-
+  
+  .table th {
+    background: #f5f5f5;
+    font-weight: 600;
+  }
+  
+  .link {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .link--red {
+    color: #dc3545;
+  }
+  
+  /* ================== MEDIA ================== */
+  
+  /* Juda katta ekranlar (5480px) */
+  @media (max-width: 5480px) {
+    .companies__title {
+      font-size: 28px;
+    }
+    .table th,
+    .table td {
+      font-size: 16px;
+      padding: 12px;
+    }
+  }
+  
+  /* Kichik ekranlar (450px) */
+  @media (max-width: 450px) {
+    .companies {
+      padding: 8px;
+    }
+    .companies__title {
+      font-size: 16px;
+    }
+    .btn {
+      font-size: 11px;
+      padding: 4px 8px;
+    }
+    .table th,
+    .table td {
+      font-size: 11px;
+      padding: 5px;
+    }
+  }
+  
+  /* Eng kichik ekranlar (350px) */
+  @media (max-width: 350px) {
+    .companies {
+      padding: 6px;
+    }
+    .companies__title {
+      font-size: 14px;
+    }
+    .btn {
+      font-size: 10px;
+      padding: 3px 6px;
+    }
+    .table th,
+    .table td {
+      font-size: 10px;
+      padding: 4px;
+    }
+  }
+  
 
 
 /* mijoz// */
@@ -644,7 +663,6 @@
   margin-bottom: 16px;
 }
 
-/* Filter tugmalari */
 .filter-buttons {
   display: flex;
   gap: 10px;
@@ -733,7 +751,6 @@
   color: #dc2626;
 }
 
-/* ===== Responsive ===== */
 @media (max-width: 1024px) {
   .clients__grid {
     grid-template-columns: repeat(2, 1fr);
@@ -811,7 +828,6 @@ table th {
   text-align: left;
 }
 
-/* 📌 1024px dan kichik (planshet katta ekranlari) */
 @media (max-width: 1024px) {
   .charts-grid,
   .tables-grid {
@@ -819,7 +835,6 @@ table th {
   }
 }
 
-/* 📌 780px dan kichik (planshet portret) */
 @media (max-width: 780px) {
   .dashboard {
     padding: 12px;
