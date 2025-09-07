@@ -1,69 +1,76 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Building2, Users, UserCheck, Package } from "lucide-react"; // iconlar
+
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  BarChart, Bar
+  BarChart, Bar, PieChart, Pie, Cell, Legend
 } from "recharts";
 
 export default function Dashboard() {
   const [transactions, setTransactions] = useState([]);
-  const [statistics, setStatistics] = useState({});
-  const [subscriptions, setSubscriptions] = useState([]);
-  const [monitoring, setMonitoring] = useState({});
-  const [support, setSupport] = useState([]);
+  const [brands, setBrands] = useState([]);
+  const [regions, setRegions] = useState([]);
+  const [months, setMonths] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [clients, setClients] = useState([]);
+  const [companies, setCompanies] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:5000/transactions").then(res => setTransactions(res.data));
-    axios.get("http://localhost:5000/statistics").then(res => setStatistics(res.data));
-    axios.get("http://localhost:5000/subscriptions").then(res => setSubscriptions(res.data));
-    axios.get("http://localhost:5000/monitoring").then(res => setMonitoring(res.data));
-  }, []);
-  useEffect(() => {
-    axios.get("http://localhost:5000/support").then(res => {
-      if (Array.isArray(res.data)) {
-        setSupport(res.data); // to‘g‘ridan-to‘g‘ri massiv
-      } else if (Array.isArray(res.data.tickets)) {
-        setSupport(res.data.tickets); // tickets ichida massiv bo‘lsa
-      } else {
-        setSupport([]); // boshqa holat bo‘lsa bo‘sh massiv
-      }
-    }).catch(() => setSupport([]));
+    axios.get("http://localhost:5000/brands").then(res => setBrands(res.data));
+    axios.get("http://localhost:5000/regions").then(res => setRegions(res.data));
+    axios.get("http://localhost:5000/months").then(res => setMonths(res.data));
+    axios.get("http://localhost:5000/users").then(res => setUsers(res.data));
+    axios.get("http://localhost:5000/clients").then(res => setClients(res.data));
+    axios.get("http://localhost:5000/companies").then(res => setCompanies(res.data));
+    axios.get("http://localhost:5000/products").then(res => setProducts(res.data));
   }, []);
 
+  const COLORS = ["#4F46E5", "#22C55E", "#F59E0B", "#EF4444", "#06B6D4", "#9333EA"];
 
   return (
     <div className="dashboard-grid">
-      {/* Dashboard umumiy ko‘rsatkichlari */}
+      {/* Asosiy raqamlar */}
       <div className="card stats-card">
-        <h3>Asosiy ko‘rsatkichlar</h3>
+        <h3>Umumiy ko‘rsatkichlar</h3>
         <div className="stats-grid">
-          <div className="stat-box">
-            <span>Kompaniyalar</span>
-            <strong>{statistics.totalCompanies || 0}</strong>
+          <div className="stat-box stat-blue">
+            <div className="icon"><Building2 size={28} /></div>
+            <div>
+              <span>Kompaniyalar</span>
+              <strong>{companies.length}</strong>
+            </div>
           </div>
-          <div className="stat-box">
-            <span>Foydalanuvchilar</span>
-            <strong>{statistics.activeUsers || 0}</strong>
+          <div className="stat-box stat-green">
+            <div className="icon"><Users size={28} /></div>
+            <div>
+              <span>Foydalanuvchilar</span>
+              <strong>{users.length}</strong>
+            </div>
           </div>
-          <div className="stat-box">
-            <span>Tranzaksiyalar</span>
-            <strong>{statistics.totalTransactions || 0}</strong>
+          <div className="stat-box stat-orange">
+            <div className="icon"><UserCheck size={28} /></div>
+            <div>
+              <span>Mijozlar</span>
+              <strong>{clients.length}</strong>
+            </div>
           </div>
-          <div className="stat-box">
-            <span>Sotuv hajmi</span>
-            <strong>${statistics.salesVolume || 0}</strong>
-          </div>
-          <div className="stat-box">
-            <span>Obunalar</span>
-            <strong>{statistics.activeSubscriptions || 0}</strong>
+          <div className="stat-box stat-purple">
+            <div className="icon"><Package size={28} /></div>
+            <div>
+              <span>Mahsulotlar</span>
+              <strong>{products.length}</strong>
+            </div>
           </div>
         </div>
       </div>
 
+
       {/* Transactions - Line Chart */}
       <div className="card">
         <h3>Tranzaksiyalar oqimi</h3>
-        <p>Oxirgi 30 kun</p>
         <ResponsiveContainer width="100%" height={250}>
           <LineChart data={transactions}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -75,50 +82,48 @@ export default function Dashboard() {
         </ResponsiveContainer>
       </div>
 
-      {/* Subscriptions - Bar Chart */}
+      {/* Brands - Bar Chart */}
       <div className="card">
-        <h3>Obunalar turlari</h3>
-        <p>Joriy yil</p>
+        <h3>Mahsulotlar bo‘yicha ulush</h3>
         <ResponsiveContainer width="100%" height={250}>
-          <BarChart data={subscriptions}>
-            <CartesianGrid
-              strokeDasharray="3 3" />
-            <XAxis dataKey="plan" />
+          <BarChart data={brands}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
-            <Bar dataKey="count" fill="#22C55E" />
+            <Bar dataKey="value" fill="#22C55E" />
           </BarChart>
         </ResponsiveContainer>
       </div>
 
-      {/* Monitoring */}
+      {/* Regions - Pie Chart */}
       <div className="card">
-        <h3>Monitoring</h3>
-        <ul className="monitor-list">
-          <li>Onlayn foydalanuvchilar: <strong>{monitoring.onlineUsers || 0}</strong></li>
-          <li>Tranzaksiya tezligi: <strong>{monitoring.tps || 0} / sec</strong></li>
-          <li>Server yuklanishi: <strong>{monitoring.serverLoad || "N/A"}%</strong></li>
-          <li>Shubhali harakatlar: <strong>{monitoring.suspicious || 0}</strong></li>
-        </ul>
+        <h3>Hududlar bo‘yicha mijozlar</h3>
+        <ResponsiveContainer width="100%" height={250}>
+          <PieChart>
+            <Pie data={regions} dataKey="value" nameKey="name" outerRadius={80} label>
+              {regions.map((_, index) => (
+                <Cell key={index} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend />
+          </PieChart>
+        </ResponsiveContainer>
       </div>
 
-      {/* Support */}
+      {/* Months - Line Chart */}
       <div className="card">
-        <h3>Qo‘llab-quvvatlash (so‘nggi ticketlar)</h3>
-        <ul className="support-list">
-          {Array.isArray(support) && support.length > 0 ? (
-            support.slice(0, 5).map((ticket) => (
-              <li key={ticket.id}>
-                <span>{ticket.companyName}</span> – {ticket.issue}
-                <span className={`status ${ticket.status?.toLowerCase()}`}>
-                  {ticket.status}
-                </span>
-              </li>
-            ))
-          ) : (
-            <li>Hozircha ticketlar yo‘q</li>
-          )}
-        </ul>
+        <h3>Oylar kesimidagi sotuvlar</h3>
+        <ResponsiveContainer width="100%" height={250}>
+          <LineChart data={months}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Line type="monotone" dataKey="value" stroke="#F59E0B" />
+          </LineChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );

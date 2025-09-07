@@ -40,3 +40,61 @@
 .read-the-docs {
   color: #888;
 }
+
+
+
+
+
+
+
+
+
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  padding: 20px;
+}
+
+.card {
+  background: #fff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.stats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.stat-box {
+  flex: 1 1 40%;
+  background: #f9fafb;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.stat-box strong {
+  display: block;
+  font-size: 20px;
+  color: #111827;
+  margin-top: 4px;
+}
+
+/* 📱 Responsive */
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
