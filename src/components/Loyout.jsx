@@ -9,7 +9,7 @@ export default function Loyout() {
       <Saidebar/>
       <div className="content">
         <header className="header">
-          <Header />
+          {/* <Header /> */}
         </header>
         <main className="main">
           <Outlet />

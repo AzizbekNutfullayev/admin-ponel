@@ -8,6 +8,8 @@ import Statistica from './page/Statistica'
 import Companiya from './page/Companiya'
 import AdminControll from './page/AdminControll'
 import Ombor from './page/Ombor'
+import Notifications from './page/Notifications'
+import HelpCenter from './page/Help Center'
 
 export default function App() {
   return (
@@ -23,6 +25,8 @@ export default function App() {
             <Route path="companiya" element={<Companiya />} />
             <Route path="admincontrollers" element={<AdminControll />} />
             <Route path="ombor" element={<Ombor />} />
+            <Route path="notifications" element={<Notifications />} />
+            <Route path="help_centr" element={<HelpCenter />} />
           </Route>
         </Routes>
       </BrowserRouter>
