@@ -17,6 +17,8 @@ import {
   HomeIcon,
   Settings,
   ArrowLeft,
+  PauseIcon,
+  WarehouseIcon,
 } from "lucide-react";
 
 
@@ -31,6 +33,8 @@ export default function Sidebar() {
     { path: "companiya", label: "kompaniyalar", icon: <Building2 size={20} /> },
     { path: "users", label: "Foydalanuvchilar", icon: <Users size={20} /> },
     { path: "settings", label: "Sozlamalar", icon: <Settings size={20} /> },    
+    { path: "admincontrollers", label: "admin boshqaruvi", icon: <PauseIcon size={20} /> },    
+    { path: "ombor", label: "Mahsulot ombori", icon: <WarehouseIcon size={20} /> },    
   ];
 
   return (

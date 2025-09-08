@@ -1,42 +1,59 @@
 {
   "dashboard": {
     "stats": {
-      "companies": 5,
-      "activeUsers": 120,
-      "transactions": 3500,
-      "salesVolume": 150000,
+      "companies": 10,
+      "activeUsers": 523,
+      "transactions": 12500,
+      "salesVolume": 2500000,
       "subscriptions": {
-        "active": 80,
-        "expired": 10,
-        "trial": 5
+        "active": 320,
+        "expired": 45,
+        "trial": 18
       }
     },
     "realtime": {
-      "onlineUsers": 25,
-      "salesToday": 45,
-      "subscriptionPayments": 12
+      "onlineUsers": 47,
+      "salesToday": 120,
+      "subscriptionPayments": 6
     },
     "aiInsights": {
       "topSellers": [
         "Smartphone",
-        "Laptop"
+        "Laptop",
+        "Refrigerator"
       ],
       "mostDemanded": [
         "iPhone 15 Pro Max",
-        "Monitor"
+        "Samsung QLED 55",
+        "Bosch Konditsioner 12000BTU"
       ],
       "decliningSales": [
-        "Printer"
-      ]
+        "Printer",
+        "MP3-pleer"
+      ],
+      "notes": "AI modul avtomatik ravishda har 24 soatda yangilanadi va anomaliyalarni belgilaydi"
     },
     "reminders": [
       {
         "type": "subscription",
-        "message": "AvtoServis obunasi 3 kunda tugaydi"
+        "message": "AvtoServis obunasi 3 kunda tugaydi",
+        "companyId": "2",
+        "dueDate": "2025-09-11"
       },
       {
         "type": "maintenance",
-        "message": "Texnik xizmat payshanba kuni bo‘ladi"
+        "message": "Texnik xizmat payshanba kuni bo‘ladi",
+        "scheduled": "2025-09-11"
+      },
+      {
+        "type": "security",
+        "message": "Server security patch o‘rnatilishi kerak",
+        "scheduled": "2025-09-12"
+      },
+      {
+        "type": "billing",
+        "message": "Qarzdor kompaniyalar haqida hisobot yarating",
+        "scheduled": "2025-09-10"
       }
     ]
   },
@@ -47,7 +64,7 @@
       "subscription": "Premium",
       "employees": 15,
       "status": "Faol",
-      "lastActive": "2 soat oldin",
+      "lastActive": "2025-09-08T10:30:00",
       "score": 85
     },
     {
@@ -55,8 +72,8 @@
       "name": "AvtoServis",
       "subscription": "Standart",
       "employees": 8,
-      "status": "Nofaol",
-      "lastActive": "1 hafta oldin",
+      "status": "Faol",
+      "lastActive": "2025-09-08T08:12:00",
       "score": 60
     },
     {
@@ -65,7 +82,7 @@
       "subscription": "Basic",
       "employees": 5,
       "status": "Faol",
-      "lastActive": "1 kun oldin",
+      "lastActive": "2025-09-07T12:00:00",
       "score": 50
     },
     {
@@ -74,7 +91,7 @@
       "subscription": "Premium",
       "employees": 12,
       "status": "Faol",
-      "lastActive": "3 soat oldin",
+      "lastActive": "2025-09-08T09:00:00",
       "score": 90
     },
     {
@@ -83,326 +100,1069 @@
       "subscription": "Standart",
       "employees": 10,
       "status": "Nofaol",
-      "lastActive": "2 hafta oldin",
+      "lastActive": "2025-08-25T14:00:00",
       "score": 40
     },
     {
-      "id": "b25c",
-      "name": "",
-      "subscription": "Basic",
-      "employees": 0,
+      "id": "6",
+      "name": "Mahsulot.Uz",
+      "subscription": "Premium",
+      "employees": 25,
       "status": "Faol",
-      "lastActive": "Hozir"
+      "lastActive": "2025-09-08T09:45:00",
+      "score": 92
+    },
+    {
+      "id": "7",
+      "name": "TexnoMarket",
+      "subscription": "Standart",
+      "employees": 18,
+      "status": "Faol",
+      "lastActive": "2025-09-06T16:20:00",
+      "score": 78
+    },
+    {
+      "id": "8",
+      "name": "Oziq-ovqat LLC",
+      "subscription": "Basic",
+      "employees": 6,
+      "status": "Faol",
+      "lastActive": "2025-09-05T11:10:00",
+      "score": 55
+    },
+    {
+      "id": "9",
+      "name": "BinoServis",
+      "subscription": "Premium",
+      "employees": 40,
+      "status": "Faol",
+      "lastActive": "2025-09-08T07:50:00",
+      "score": 88
+    },
+    {
+      "id": "10",
+      "name": "AutoParts Express",
+      "subscription": "Basic",
+      "employees": 4,
+      "status": "Faol",
+      "lastActive": "2025-09-08T00:05:00",
+      "score": 48
     }
   ],
   "users": [
     {
-      "id": "1",
-      "name": "Ali",
-      "email": "ali@example.com",
+      "id": "u1",
+      "name": "Ali Karimov",
+      "email": "ali.karimov@avtodetal.uz",
+      "role": "superadmin",
+      "companyId": null,
+      "logs": [
+        "2025-09-08T09:00:00 Login",
+        "2025-09-08T09:05:00 Obuna boshqarildi"
+      ]
+    },
+    {
+      "id": "u2",
+      "name": "Dilorom Murodova",
+      "email": "dilorom@avtoservis.uz",
       "role": "admin",
+      "companyId": "2",
       "logs": [
-        "Login - 10:00",
-        "Mahsulot qo‘shildi - 10:15"
+        "2025-09-07T18:00:00 Login",
+        "2025-09-07T18:15:00 Tarif yangilash"
       ]
     },
     {
-      "id": "2",
-      "name": "Vali",
-      "email": "vali@example.com",
-      "role": "user",
-      "logs": [
-        "Login - 09:00"
-      ]
-    },
-    {
-      "id": "3",
-      "name": "Hasan",
-      "email": "hasan@example.com",
+      "id": "u3",
+      "name": "Javlon Ergashev",
+      "email": "javlon@avtomarket.uz",
       "role": "manager",
+      "companyId": "3",
       "logs": [
-        "Login - 11:00",
-        "Obuna yangilandi - 11:30"
+        "2025-09-06T08:30:00 Login"
+      ]
+    },
+    {
+      "id": "u4",
+      "name": "Saida Rustamova",
+      "email": "saida@avtotuning.uz",
+      "role": "seller",
+      "companyId": "4",
+      "logs": [
+        "2025-09-08T08:45:00 Mahsulot sotildi - #TX1023"
+      ]
+    },
+    {
+      "id": "u5",
+      "name": "Bekzod Xudoyberdiyev",
+      "email": "bekzod@avtosalon.uz",
+      "role": "cashier",
+      "companyId": "5",
+      "logs": [
+        "2025-09-01T10:00:00 Qaytarilgan tranzaksiya - #TR890"
+      ]
+    },
+    {
+      "id": "u6",
+      "name": "Nilufar Sobirova",
+      "email": "nilufar@mahsulot.uz",
+      "role": "warehouse",
+      "companyId": "6",
+      "logs": [
+        "2025-09-08T07:30:00 Omborga yangi mahsulot qabul qilindi"
+      ]
+    },
+    {
+      "id": "u7",
+      "name": "Otabek Ismoilov",
+      "email": "otabek@texnomarket.uz",
+      "role": "seller",
+      "companyId": "7",
+      "logs": [
+        "2025-09-07T14:20:00 Chegirma qo‘llandi - %10"
+      ]
+    },
+    {
+      "id": "u8",
+      "name": "Gulnora Alimova",
+      "email": "gulnora@oziv.uz",
+      "role": "manager",
+      "companyId": "8",
+      "logs": [
+        "2025-09-05T09:00:00 Login"
+      ]
+    },
+    {
+      "id": "u9",
+      "name": "Rustam Sattorov",
+      "email": "rustam@binoservis.uz",
+      "role": "technician",
+      "companyId": "9",
+      "logs": [
+        "2025-09-08T06:50:00 Servis ishini boshladi"
+      ]
+    },
+    {
+      "id": "u10",
+      "name": "Madina Qodirova",
+      "email": "madina@autoparts.uz",
+      "role": "seller",
+      "companyId": "10",
+      "logs": [
+        "2025-09-07T12:10:00 Mahsulot qo‘shildi - #PR456"
       ]
     }
   ],
   "clients": [
     {
-      "id": "1",
-      "name": "Toshmat",
+      "id": "c1",
+      "name": "Toshmat Axmedov",
       "phone": "+998901112233",
-      "companyId": 1,
+      "companyId": "4",
       "companyName": "AvtoTuning",
       "status": "Faol",
       "image": "https://randomuser.me/api/portraits/men/11.jpg"
     },
     {
-      "id": "2",
-      "name": "Eshmat",
+      "id": "c2",
+      "name": "Eshmat Isroilov",
       "phone": "+998909998877",
-      "companyId": 2,
+      "companyId": "1",
       "companyName": "AvtoDetal",
       "status": "Nofaol",
       "image": "https://randomuser.me/api/portraits/women/21.jpg"
     },
     {
-      "id": "3",
-      "name": "Vali",
+      "id": "c3",
+      "name": "Vali Nazarov",
       "phone": "+998933334455",
-      "companyId": 1,
+      "companyId": "2",
       "companyName": "AvtoServis",
       "status": "Faol",
       "image": "https://randomuser.me/api/portraits/men/31.jpg"
+    },
+    {
+      "id": "c4",
+      "name": "Shahnoza Qodirova",
+      "phone": "+998901223344",
+      "companyId": "6",
+      "companyName": "Mahsulot.Uz",
+      "status": "Faol",
+      "image": "https://randomuser.me/api/portraits/women/41.jpg"
+    },
+    {
+      "id": "c5",
+      "name": "Eldor Karimov",
+      "phone": "+998902334455",
+      "companyId": "7",
+      "companyName": "TexnoMarket",
+      "status": "Faol",
+      "image": "https://randomuser.me/api/portraits/men/51.jpg"
+    },
+    {
+      "id": "c6",
+      "name": "Nigora Soliyeva",
+      "phone": "+998903445566",
+      "companyId": "9",
+      "companyName": "BinoServis",
+      "status": "Faol",
+      "image": "https://randomuser.me/api/portraits/women/61.jpg"
+    },
+    {
+      "id": "c7",
+      "name": "Murodjon Tursunov",
+      "phone": "+998904556677",
+      "companyId": "5",
+      "companyName": "AvtoSalon",
+      "status": "Nofaol",
+      "image": "https://randomuser.me/api/portraits/men/71.jpg"
+    },
+    {
+      "id": "c8",
+      "name": "Dilshod Jo‘rayev",
+      "phone": "+998905667788",
+      "companyId": "3",
+      "companyName": "AvtoMarket",
+      "status": "Faol",
+      "image": "https://randomuser.me/api/portraits/men/81.jpg"
+    },
+    {
+      "id": "c9",
+      "name": "Zamira Xudoyberganova",
+      "phone": "+998906778899",
+      "companyId": "8",
+      "companyName": "Oziq-ovqat LLC",
+      "status": "Faol",
+      "image": "https://randomuser.me/api/portraits/women/91.jpg"
+    },
+    {
+      "id": "c10",
+      "name": "Anvar Islomov",
+      "phone": "+998907889900",
+      "companyId": "10",
+      "companyName": "AutoParts Express",
+      "status": "Faol",
+      "image": "https://randomuser.me/api/portraits/men/99.jpg"
     }
   ],
   "products": [
     {
-      "id": "1",
-      "name": "Laptop",
-      "price": 1200,
-      "stock": 15
+      "id": "p1",
+      "name": "Laptop Dell XPS 15",
+      "price": 1800,
+      "stock": 12,
+      "barcode": "111000111222",
+      "brand": "Dell",
+      "category": "Laptop"
     },
     {
-      "id": "2",
-      "name": "Smartphone",
-      "price": 800,
-      "stock": 30
+      "id": "p2",
+      "name": "iPhone 15 Pro Max 256GB",
+      "price": 1400,
+      "stock": 25,
+      "barcode": "1234567890123",
+      "brand": "Apple",
+      "category": "Smartphone"
     },
     {
-      "id": "3",
-      "name": "Monitor",
-      "price": 300,
-      "stock": 20
+      "id": "p3",
+      "name": "Samsung Galaxy S24 Ultra",
+      "price": 1300,
+      "stock": 18,
+      "barcode": "9876543210123",
+      "brand": "Samsung",
+      "category": "Smartphone"
     },
     {
-      "id": "4",
-      "name": "Printer",
-      "price": 200,
-      "stock": 10
+      "id": "p4",
+      "name": "Monitor 27\" QHD",
+      "price": 320,
+      "stock": 20,
+      "barcode": "555666777888",
+      "brand": "LG",
+      "category": "Monitor"
+    },
+    {
+      "id": "p5",
+      "name": "Printer HP LaserJet",
+      "price": 220,
+      "stock": 10,
+      "barcode": "444555666777",
+      "brand": "HP",
+      "category": "Printer"
+    },
+    {
+      "id": "p6",
+      "name": "Bosch Konditsioner 12000BTU",
+      "price": 450,
+      "stock": 8,
+      "barcode": "333222111000",
+      "brand": "Bosch",
+      "category": "Appliance"
+    },
+    {
+      "id": "p7",
+      "name": "Powerbank 20000mAh",
+      "price": 45,
+      "stock": 60,
+      "barcode": "222333444555",
+      "brand": "Xiaomi",
+      "category": "Accessory"
+    },
+    {
+      "id": "p8",
+      "name": "SSD 1TB NVMe",
+      "price": 110,
+      "stock": 30,
+      "barcode": "777888999000",
+      "brand": "Samsung",
+      "category": "Storage"
+    },
+    {
+      "id": "p9",
+      "name": "Router WiFi 6",
+      "price": 90,
+      "stock": 22,
+      "barcode": "666555444333",
+      "brand": "TP-Link",
+      "category": "Network"
+    },
+    {
+      "id": "p10",
+      "name": "Kabel USB-C 1m",
+      "price": 5,
+      "stock": 200,
+      "barcode": "999000111222",
+      "brand": "Baseus",
+      "category": "Accessory"
     }
   ],
   "productMasterLibrary": [
     {
-      "barcode": "123456789",
-      "name": "iPhone 15 Pro Max Green 256GB",
+      "barcode": "1234567890123",
+      "name": "iPhone 15 Pro Max 256GB Green",
       "brand": "Apple",
       "color": "Green",
       "memory": "256GB",
-      "id": "78c3"
+      "category": "Smartphone",
+      "id": "pm1"
     },
     {
-      "barcode": "987654321",
+      "barcode": "9876543210123",
       "name": "Samsung Galaxy S24 Ultra 512GB",
       "brand": "Samsung",
       "color": "Black",
       "memory": "512GB",
-      "id": "307a"
+      "category": "Smartphone",
+      "id": "pm2"
+    },
+    {
+      "barcode": "111000111222",
+      "name": "Dell XPS 15 16GB/512GB",
+      "brand": "Dell",
+      "color": "Silver",
+      "memory": "512GB",
+      "category": "Laptop",
+      "id": "pm3"
+    },
+    {
+      "barcode": "555666777888",
+      "name": "LG 27\" QHD IPS Monitor",
+      "brand": "LG",
+      "color": "Black",
+      "memory": "N/A",
+      "category": "Monitor",
+      "id": "pm4"
+    },
+    {
+      "barcode": "444555666777",
+      "name": "HP LaserJet Pro M404",
+      "brand": "HP",
+      "color": "White",
+      "memory": "N/A",
+      "category": "Printer",
+      "id": "pm5"
+    },
+    {
+      "barcode": "333222111000",
+      "name": "Bosch AC 12000BTU",
+      "brand": "Bosch",
+      "color": "White",
+      "memory": "N/A",
+      "category": "Appliance",
+      "id": "pm6"
+    },
+    {
+      "barcode": "222333444555",
+      "name": "Xiaomi 20000mAh Powerbank",
+      "brand": "Xiaomi",
+      "color": "Black",
+      "memory": "20000mAh",
+      "category": "Accessory",
+      "id": "pm7"
+    },
+    {
+      "barcode": "777888999000",
+      "name": "Samsung 1TB NVMe SSD",
+      "brand": "Samsung",
+      "color": "N/A",
+      "memory": "1TB",
+      "category": "Storage",
+      "id": "pm8"
+    },
+    {
+      "barcode": "666555444333",
+      "name": "TP-Link WiFi 6 Router",
+      "brand": "TP-Link",
+      "color": "White",
+      "memory": "N/A",
+      "category": "Network",
+      "id": "pm9"
+    },
+    {
+      "barcode": "999000111222",
+      "name": "Baseus USB-C Cable 1m",
+      "brand": "Baseus",
+      "color": "Black",
+      "memory": "N/A",
+      "category": "Accessory",
+      "id": "pm10"
     }
   ],
   "transactions": [
     {
-      "day": "1-kun",
+      "id": "t1",
+      "date": "2025-09-01",
       "value": 400,
-      "id": "4ee8"
+      "type": "sale",
+      "companyId": "1"
     },
     {
-      "day": "5-kun",
+      "id": "t2",
+      "date": "2025-09-05",
       "value": 300,
-      "id": "9d48"
+      "type": "sale",
+      "companyId": "2"
     },
     {
-      "day": "10-kun",
+      "id": "t3",
+      "date": "2025-09-10",
       "value": 500,
-      "id": "8561"
+      "type": "sale",
+      "companyId": "3"
     },
     {
-      "day": "15-kun",
+      "id": "t4",
+      "date": "2025-09-15",
       "value": 700,
-      "id": "7649"
+      "type": "sale",
+      "companyId": "4"
     },
     {
-      "day": "20-kun",
+      "id": "t5",
+      "date": "2025-09-20",
       "value": 200,
-      "id": "b8a6"
+      "type": "refund",
+      "companyId": "5"
     },
     {
-      "day": "25-kun",
+      "id": "t6",
+      "date": "2025-09-25",
       "value": 600,
-      "id": "287e"
+      "type": "sale",
+      "companyId": "6"
     },
     {
-      "day": "30-kun",
+      "id": "t7",
+      "date": "2025-09-30",
       "value": 800,
-      "id": "0e62"
+      "type": "sale",
+      "companyId": "7"
+    },
+    {
+      "id": "t8",
+      "date": "2025-08-28",
+      "value": 150,
+      "type": "sale",
+      "companyId": "8"
+    },
+    {
+      "id": "t9",
+      "date": "2025-08-15",
+      "value": 250,
+      "type": "sale",
+      "companyId": "9"
+    },
+    {
+      "id": "t10",
+      "date": "2025-07-30",
+      "value": 950,
+      "type": "sale",
+      "companyId": "10"
     }
   ],
   "statistics": {
     "brands": [
       {
-        "name": "Mahsulot A",
-        "value": 10
+        "name": "Apple",
+        "value": 320
       },
       {
-        "name": "Mahsulot B",
-        "value": 25
+        "name": "Samsung",
+        "value": 280
       },
       {
-        "name": "Mahsulot C",
-        "value": 20
+        "name": "Dell",
+        "value": 150
       },
       {
-        "name": "Mahsulot D",
-        "value": 15
+        "name": "HP",
+        "value": 90
       },
       {
-        "name": "Mahsulot E",
-        "value": 5
+        "name": "LG",
+        "value": 110
+      },
+      {
+        "name": "Bosch",
+        "value": 70
+      },
+      {
+        "name": "Xiaomi",
+        "value": 200
+      },
+      {
+        "name": "TP-Link",
+        "value": 85
+      },
+      {
+        "name": "Baseus",
+        "value": 60
+      },
+      {
+        "name": "Sony",
+        "value": 45
       }
     ],
     "regions": [
       {
         "name": "Toshkent",
-        "value": 90
+        "value": 900
       },
       {
         "name": "Samarqand",
-        "value": 60
+        "value": 600
       },
       {
         "name": "Buxoro",
-        "value": 50
+        "value": 500
       },
       {
         "name": "Farg'ona",
-        "value": 80
+        "value": 800
       },
       {
         "name": "Andijon",
-        "value": 70
+        "value": 700
+      },
+      {
+        "name": "Namangan",
+        "value": 450
+      },
+      {
+        "name": "Qashqadaryo",
+        "value": 300
+      },
+      {
+        "name": "Sirdaryo",
+        "value": 200
+      },
+      {
+        "name": "Jizzax",
+        "value": 250
+      },
+      {
+        "name": "Xorazm",
+        "value": 270
       }
     ],
     "months": [
       {
         "name": "Yanvar",
-        "value": 50
+        "value": 500
       },
       {
         "name": "Fevral",
-        "value": 40
+        "value": 420
       },
       {
         "name": "Mart",
-        "value": 70
+        "value": 700
       },
       {
         "name": "Aprel",
-        "value": 60
+        "value": 630
       },
       {
         "name": "May",
-        "value": 90
+        "value": 910
       },
       {
         "name": "Iyun",
-        "value": 100
+        "value": 1000
       },
       {
         "name": "Iyul",
-        "value": 80
+        "value": 800
+      },
+      {
+        "name": "Avgust",
+        "value": 860
+      },
+      {
+        "name": "Sentyabr",
+        "value": 450
+      },
+      {
+        "name": "Oktyabr",
+        "value": 520
       }
     ],
     "aiForecast": [
       {
         "region": "Toshkent",
         "predictedProduct": "Smartphone",
-        "expectedSales": 120
+        "expectedSales": 320
       },
       {
         "region": "Samarqand",
         "predictedProduct": "Laptop",
-        "expectedSales": 75
+        "expectedSales": 210
+      },
+      {
+        "region": "Buxoro",
+        "predictedProduct": "Refrigerator",
+        "expectedSales": 90
+      },
+      {
+        "region": "Farg'ona",
+        "predictedProduct": "Air Conditioner",
+        "expectedSales": 140
+      },
+      {
+        "region": "Andijon",
+        "predictedProduct": "SSD",
+        "expectedSales": 110
+      },
+      {
+        "region": "Namangan",
+        "predictedProduct": "Monitor",
+        "expectedSales": 95
+      },
+      {
+        "region": "Qashqadaryo",
+        "predictedProduct": "Printer",
+        "expectedSales": 60
+      },
+      {
+        "region": "Sirdaryo",
+        "predictedProduct": "Powerbank",
+        "expectedSales": 50
+      },
+      {
+        "region": "Jizzax",
+        "predictedProduct": "Router",
+        "expectedSales": 70
+      },
+      {
+        "region": "Xorazm",
+        "predictedProduct": "Phone Accessory",
+        "expectedSales": 85
       }
     ]
   },
   "subscriptions": [
     {
-      "companyId": 1,
+      "id": "s1",
+      "companyId": "1",
       "plan": "Premium",
       "status": "Active",
       "renewalDate": "2025-09-15",
-      "revenue": 1200,
-      "id": "4ecb"
+      "revenue": 1200
     },
     {
-      "companyId": 2,
+      "id": "s2",
+      "companyId": "2",
       "plan": "Standart",
       "status": "Expired",
       "renewalDate": "2025-08-01",
-      "revenue": 600,
-      "id": "e9c3"
+      "revenue": 600
     },
     {
-      "companyId": 3,
+      "id": "s3",
+      "companyId": "3",
       "plan": "Basic",
       "status": "Active",
       "renewalDate": "2025-09-20",
-      "revenue": 300,
-      "id": "fb74"
+      "revenue": 300
+    },
+    {
+      "id": "s4",
+      "companyId": "4",
+      "plan": "Premium",
+      "status": "Active",
+      "renewalDate": "2025-10-01",
+      "revenue": 1500
+    },
+    {
+      "id": "s5",
+      "companyId": "5",
+      "plan": "Standart",
+      "status": "Canceled",
+      "renewalDate": "2025-07-30",
+      "revenue": 0
+    },
+    {
+      "id": "s6",
+      "companyId": "6",
+      "plan": "Premium",
+      "status": "Active",
+      "renewalDate": "2025-09-30",
+      "revenue": 2000
+    },
+    {
+      "id": "s7",
+      "companyId": "7",
+      "plan": "Standart",
+      "status": "Trial",
+      "renewalDate": "2025-09-12",
+      "revenue": 0
+    },
+    {
+      "id": "s8",
+      "companyId": "8",
+      "plan": "Basic",
+      "status": "Active",
+      "renewalDate": "2025-11-05",
+      "revenue": 250
+    },
+    {
+      "id": "s9",
+      "companyId": "9",
+      "plan": "Premium",
+      "status": "Active",
+      "renewalDate": "2026-01-01",
+      "revenue": 3000
+    },
+    {
+      "id": "s10",
+      "companyId": "10",
+      "plan": "Basic",
+      "status": "Expired",
+      "renewalDate": "2025-08-20",
+      "revenue": 120
     }
   ],
   "monitoring": {
-    "onlineUsers": 25,
-    "transactionRate": "50 ops/sec",
+    "onlineUsers": 47,
+    "transactionRate": "70 ops/sec",
     "alerts": [
       {
+        "id": "a1",
         "type": "fraud",
-        "message": "Kassir #12 tomonidan 10 ta qaytarilgan tranzaksiya"
+        "message": "Kassir #12 tomonidan 10 ta qaytarilgan tranzaksiya",
+        "severity": "high",
+        "createdAt": "2025-09-07T16:00:00"
       },
       {
+        "id": "a2",
         "type": "server",
-        "message": "DB server 80% RAM ishlatyapti"
+        "message": "DB server 80% RAM ishlatyapti",
+        "severity": "medium",
+        "createdAt": "2025-09-08T06:30:00"
+      },
+      {
+        "id": "a3",
+        "type": "payment",
+        "message": "Payme integratsiyasida 3 ta muvaffaqiyatsiz to‘lov",
+        "severity": "high",
+        "createdAt": "2025-09-08T08:00:00"
+      },
+      {
+        "id": "a4",
+        "type": "security",
+        "message": "Ko‘p marta xato parol urinishlari - 50 dan ortiq",
+        "severity": "high",
+        "createdAt": "2025-09-06T22:10:00"
+      },
+      {
+        "id": "a5",
+        "type": "performance",
+        "message": "API /products endpoint 2x sekinlashdi",
+        "severity": "medium",
+        "createdAt": "2025-09-08T09:00:00"
+      },
+      {
+        "id": "a6",
+        "type": "integration",
+        "message": "ERP sync xatosi: order #8754 import qilinmadi",
+        "severity": "medium",
+        "createdAt": "2025-09-05T13:20:00"
+      },
+      {
+        "id": "a7",
+        "type": "fraud",
+        "message": "Bir IP dan 1000 so‘rov — bot activity",
+        "severity": "high",
+        "createdAt": "2025-09-08T03:45:00"
+      },
+      {
+        "id": "a8",
+        "type": "server",
+        "message": "Disk usage > 90%",
+        "severity": "high",
+        "createdAt": "2025-09-04T11:00:00"
+      },
+      {
+        "id": "a9",
+        "type": "backup",
+        "message": "Oxirgi backup 48 soat oldin — zaxira muvaffaqiyatsiz",
+        "severity": "high",
+        "createdAt": "2025-09-07T02:00:00"
+      },
+      {
+        "id": "a10",
+        "type": "payment",
+        "message": "Stripe webhook 504 error ko‘rsatdi",
+        "severity": "medium",
+        "createdAt": "2025-09-08T05:15:00"
       }
     ]
   },
   "support": {
     "tickets": [
       {
-        "id": 1,
+        "id": "tk1",
         "company": "AvtoDetal",
         "issue": "To‘lov ishlamayapti",
-        "status": "Open"
+        "status": "Open",
+        "createdAt": "2025-09-07T09:10:00",
+        "assignedTo": "SupportAgent1"
       },
       {
-        "id": 2,
+        "id": "tk2",
         "company": "AvtoServis",
         "issue": "Login muammosi",
-        "status": "Closed"
+        "status": "Closed",
+        "createdAt": "2025-08-29T11:20:00",
+        "assignedTo": "SupportAgent2"
+      },
+      {
+        "id": "tk3",
+        "company": "AvtoMarket",
+        "issue": "Mahsulot to‘g‘ri ko‘rinmayapti",
+        "status": "In Progress",
+        "createdAt": "2025-09-05T14:00:00",
+        "assignedTo": "SupportAgent3"
+      },
+      {
+        "id": "tk4",
+        "company": "AvtoTuning",
+        "issue": "Ombor hisobi noto‘g‘ri",
+        "status": "Open",
+        "createdAt": "2025-09-06T08:30:00",
+        "assignedTo": "SupportAgent4"
+      },
+      {
+        "id": "tk5",
+        "company": "AvtoSalon",
+        "issue": "Factura xato",
+        "status": "Open",
+        "createdAt": "2025-09-01T10:05:00",
+        "assignedTo": "SupportAgent1"
+      },
+      {
+        "id": "tk6",
+        "company": "Mahsulot.Uz",
+        "issue": "Barcode scan ishlamayapti",
+        "status": "In Progress",
+        "createdAt": "2025-09-04T12:00:00",
+        "assignedTo": "SupportAgent2"
+      },
+      {
+        "id": "tk7",
+        "company": "TexnoMarket",
+        "issue": "API dan ma'lumot olinmayapti",
+        "status": "Open",
+        "createdAt": "2025-09-02T09:30:00",
+        "assignedTo": "SupportAgent3"
+      },
+      {
+        "id": "tk8",
+        "company": "Oziq-ovqat LLC",
+        "issue": "Obuna to‘lov xabarnomasi kelmadi",
+        "status": "Closed",
+        "createdAt": "2025-08-25T16:40:00",
+        "assignedTo": "SupportAgent4"
+      },
+      {
+        "id": "tk9",
+        "company": "BinoServis",
+        "issue": "Yuklash vaqtida xatolik",
+        "status": "In Progress",
+        "createdAt": "2025-09-03T07:10:00",
+        "assignedTo": "SupportAgent1"
+      },
+      {
+        "id": "tk10",
+        "company": "AutoParts Express",
+        "issue": "Chegirma kodi ishlamayapti",
+        "status": "Open",
+        "createdAt": "2025-09-08T06:45:00",
+        "assignedTo": "SupportAgent2"
       }
     ],
     "chat": [
       {
         "from": "Ali",
         "message": "Salom, yordam kerak!",
-        "time": "10:00"
+        "time": "2025-09-08T10:00:00"
+      },
+      {
+        "from": "SupportAgent1",
+        "message": "Qanday muammo?",
+        "time": "2025-09-08T10:01:00"
+      },
+      {
+        "from": "Toshmat",
+        "message": "To‘lov o‘tmayapti",
+        "time": "2025-09-07T15:20:00"
+      },
+      {
+        "from": "SupportAgent2",
+        "message": "Biz tekshirayapmiz",
+        "time": "2025-09-07T15:22:00"
+      },
+      {
+        "from": "Eshmat",
+        "message": "Login bilan bog‘liq savolim bor",
+        "time": "2025-08-29T11:00:00"
+      },
+      {
+        "from": "SupportAgent3",
+        "message": "Sizga qo‘ng‘iroq qilamiz",
+        "time": "2025-08-29T11:05:00"
+      },
+      {
+        "from": "Vali",
+        "message": "Mahsulot qaerdan yetib keladi?",
+        "time": "2025-09-05T12:30:00"
+      },
+      {
+        "from": "SupportAgent4",
+        "message": "Yetkazib berish xizmati bilan bog‘laning",
+        "time": "2025-09-05T12:34:00"
+      },
+      {
+        "from": "Madina",
+        "message": "Barcode qo‘shildi",
+        "time": "2025-09-07T12:15:00"
+      },
+      {
+        "from": "SupportAgent1",
+        "message": "Yaxshi, rahmat",
+        "time": "2025-09-07T12:16:00"
       }
     ]
   },
   "admins": [
     {
-      "id": "1",
-      "name": "SuperAdmin",
-      "role": "full",
-      "logs": [
-        "Obuna boshqarildi - 09:00"
-      ]
-    },
-    {
-      "id": "2",
+      "id": "a2",
       "name": "Moderator",
       "role": "statistics",
       "logs": [
-        "Statistika hisobot yaratildi - 11:00"
+        "2025-09-07T11:00:00 Statistika hisobot yaratildi"
+      ],
+      "status": "Active"
+    },
+    {
+      "id": "a3",
+      "name": "BillingAdmin",
+      "role": "billing",
+      "logs": [
+        "2025-09-06T10:20:00 Invoice yaratildi"
       ]
+    },
+    {
+      "id": "a4",
+      "name": "SupportLead",
+      "role": "support",
+      "logs": [
+        "2025-09-05T09:00:00 Ticket delegation"
+      ],
+      "status": "Blocked"
+    },
+    {
+      "id": "a5",
+      "name": "SecurityOfficer",
+      "role": "security",
+      "logs": [
+        "2025-09-04T22:10:00 Brute-force alert tekshirildi"
+      ]
+    },
+    {
+      "id": "a6",
+      "name": "ProductAdmin",
+      "role": "product",
+      "logs": [
+        "2025-09-03T14:00:00 Product library updated"
+      ]
+    },
+    {
+      "id": "a7",
+      "name": "CompanyManager",
+      "role": "companies",
+      "logs": [
+        "2025-09-02T08:30:00 New company onboarded"
+      ]
+    },
+    {
+      "id": "a8",
+      "name": "IntegrationAdmin",
+      "role": "integration",
+      "logs": [
+        "2025-09-01T13:50:00 ERP sync started"
+      ]
+    },
+    {
+      "id": "a9",
+      "name": "AnalyticsAdmin",
+      "role": "analytics",
+      "logs": [
+        "2025-08-31T17:40:00 AI forecast generated"
+      ]
+    },
+    {
+      "id": "a10",
+      "name": "OpsAdmin",
+      "role": "operations",
+      "logs": [
+        "2025-08-30T07:30:00 Server maintenance scheduled"
+      ]
+    },
+    {
+      "id": "7756",
+      "name": "Yangi Admin",
+      "email": "newadmin@example.com",
+      "role": "Admin",
+      "status": "Active"
+    },
+    {
+      "id": "2016",
+      "name": "Yangi Admin",
+      "email": "newadmin@example.com",
+      "role": "Admin",
+      "status": "Active"
     }
   ],
   "settings": {
@@ -415,18 +1175,58 @@
       "Payme",
       "Click",
       "Stripe",
-      "PayPal"
+      "PayPal",
+      "YandexPay"
     ],
     "security": [
       "2FA",
       "SMS OTP",
-      "Email OTP"
+      "Email OTP",
+      "SAML",
+      "Password Complexity"
     ],
     "apiIntegrations": [
       "CRM",
-      "ERP"
+      "ERP",
+      "SAP",
+      "Salesforce",
+      "1C"
     ],
     "theme": "dark",
-    "language": "ru"
+    "defaultLanguage": "UZ",
+    "auditLogEnabled": true,
+    "productLibraryCrowdsourcing": true
+  },
+  "adminconrollers": {
+    "languages": [
+      "UZ",
+      "RU",
+      "EN"
+    ],
+    "paymentIntegrations": [
+      "Payme",
+      "Click",
+      "Stripe",
+      "PayPal",
+      "YandexPay"
+    ],
+    "security": [
+      "2FA",
+      "SMS OTP",
+      "Email OTP",
+      "SAML",
+      "Password Complexity"
+    ],
+    "apiIntegrations": [
+      "CRM",
+      "ERP",
+      "SAP",
+      "Salesforce",
+      "1C"
+    ],
+    "theme": "dark",
+    "defaultLanguage": "UZ",
+    "auditLogEnabled": true,
+    "productLibraryCrowdsourcing": true
   }
 }

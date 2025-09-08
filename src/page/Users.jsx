@@ -20,7 +20,6 @@ export default function Users() {
     <div className="clients">
       <h2 className="clients__title">Mijozlar</h2>
 
-      {/* Filter tugmalari */}
       <div className="filter-buttons">
         <button
           onClick={() => setFilter("all")}

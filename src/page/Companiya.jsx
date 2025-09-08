@@ -48,7 +48,6 @@ export default function Companiya() {
       .catch((err) => console.error(err));
   };
 
-  // 🔹 Kompaniyani o‘chirish
   const deleteCompany = (id) => {
     if (!window.confirm("Haqiqatan o‘chirmoqchimisiz?")) return;
     axios
@@ -57,7 +56,6 @@ export default function Companiya() {
       .catch((err) => console.error(err));
   };
 
-  // 🔹 Filtrlash
   const filteredCompanies = companies.filter((company) =>
     filter === "all" ? true : company.status === filter
   );
@@ -66,7 +64,6 @@ export default function Companiya() {
     <div className="companies">
       <h2 className="companies__title">Kompaniyalar</h2>
 
-      {/* Filter tugmalari */}
       <div className="companies__filters">
         <button onClick={() => setFilter("all")} className={filter === "all" ? "btn btn--active" : "btn"}>
           Barchasi
@@ -79,7 +76,6 @@ export default function Companiya() {
         </button>
       </div>
 
-      {/* ➕ Yangi kompaniya qo‘shish */}
       <div className="form">
         <h3>Yangi kompaniya qo‘shish</h3>
         <input
@@ -105,7 +101,6 @@ export default function Companiya() {
         <button onClick={addCompany} className="btn btn--primary">Qo‘shish</button>
       </div>
 
-      {/* ✏️ Tahrirlash formi */}
       {editingCompany && (
         <div className="form edit-form">
           <h3>Tahrirlash: {editingCompany.name}</h3>
@@ -132,7 +127,6 @@ export default function Companiya() {
         </div>
       )}
 
-      {/* Jadval */}
       <div className="table-wrap">
         <table className="table">
           <thead>

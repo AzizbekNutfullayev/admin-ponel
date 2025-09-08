@@ -6,6 +6,8 @@ import Settings from './page/Settings'
 import Users from './page/Users'
 import Statistica from './page/Statistica'
 import Companiya from './page/Companiya'
+import AdminControll from './page/AdminControll'
+import Ombor from './page/Ombor'
 
 export default function App() {
   return (
@@ -19,6 +21,8 @@ export default function App() {
             <Route path="analytics" element={<Statistica />} />
             <Route path="analytics" element={<Statistica />} />
             <Route path="companiya" element={<Companiya />} />
+            <Route path="admincontrollers" element={<AdminControll />} />
+            <Route path="ombor" element={<Ombor />} />
           </Route>
         </Routes>
       </BrowserRouter>

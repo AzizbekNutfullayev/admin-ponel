@@ -25,6 +25,10 @@ export default function Statistica() {
     clients: [],
     companies: [],
     products: [],
+    revenue: [],
+    activeUsers: [],
+    subscriptions: [],
+    securityLogs: [],
   });
 
   useEffect(() => {
@@ -41,12 +45,16 @@ export default function Statistica() {
           clients: res.data.clients || [],
           companies: res.data.companies || [],
           products: res.data.products || [],
+          revenue: res.data.revenue || [],
+          activeUsers: res.data.activeUsers || [],
+          subscriptions: res.data.subscriptions || [],
+          securityLogs: res.data.securityLogs || [],
         });
       })
       .catch((err) => console.error("Xatolik:", err));
   }, []);
 
-  const COLORS = ["#6366F1", "#16A34A", "#DC2626", "#FACC15", "#0EA5E9"];
+  const COLORS = ["#6366F1", "#16A34A", "#DC2626", "#FACC15", "#0EA5E9", "#9333EA"];
 
   return (
     <div className="dashboard">
@@ -68,7 +76,6 @@ export default function Statistica() {
           </ResponsiveContainer>
         </div>
 
-        {/* Brands */}
         <div className="card">
           <h3>Mahsulotlar ulushi</h3>
           <ResponsiveContainer width="100%" height={250}>
@@ -111,6 +118,32 @@ export default function Statistica() {
               <YAxis />
               <Tooltip />
               <Line type="monotone" dataKey="value" stroke="#DC2626" />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Revenue */}
+        <div className="card">
+          <h3>Daromad (Revenue)</h3>
+          <ResponsiveContainer width="100%" height={250}>
+            <BarChart data={statistics.revenue}>
+              <XAxis dataKey="month" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="amount" fill="#FACC15" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Active Users */}
+        <div className="card">
+          <h3>Faol foydalanuvchilar</h3>
+          <ResponsiveContainer width="100%" height={250}>
+            <LineChart data={statistics.activeUsers}>
+              <XAxis dataKey="date" />
+              <YAxis />
+              <Tooltip />
+              <Line type="monotone" dataKey="count" stroke="#0EA5E9" />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -217,6 +250,60 @@ export default function Statistica() {
                   <tr key={p.id}>
                     <td>{p.name}</td>
                     <td>{p.price} so‘m</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="2">Ma’lumot yo‘q</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Subscriptions */}
+        <div className="card">
+          <h3>Obunalar</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Plan</th>
+                <th>Foydalanuvchilar</th>
+              </tr>
+            </thead>
+            <tbody>
+              {statistics.subscriptions?.length > 0 ? (
+                statistics.subscriptions.map((s, i) => (
+                  <tr key={i}>
+                    <td>{s.plan}</td>
+                    <td>{s.count}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="2">Ma’lumot yo‘q</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Security Logs */}
+        <div className="card">
+          <h3>Xavfsizlik Loglari</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Vaqt</th>
+                <th>Hodisa</th>
+              </tr>
+            </thead>
+            <tbody>
+              {statistics.securityLogs?.length > 0 ? (
+                statistics.securityLogs.map((log, i) => (
+                  <tr key={i}>
+                    <td>{log.time}</td>
+                    <td>{log.event}</td>
                   </tr>
                 ))
               ) : (
