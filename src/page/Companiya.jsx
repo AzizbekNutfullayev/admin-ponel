@@ -9,16 +9,15 @@ export default function Companiya() {
     subscription: "Basic",
     employees: 0,
     status: "Faol",
-    lastActive: "Hozir"
+    lastActive: "Hozir",
   });
   const [editingCompany, setEditingCompany] = useState(null);
 
-  // 🔹 Barcha kompaniyalarni olish
   const fetchCompanies = () => {
     axios
-      .get("http://localhost:5000/companies")
+      .get("  ") 
       .then((res) => setCompanies(res.data))
-      .catch((err) => console.error(err));
+      .catch((err) => console.error("Xatolik:", err));
   };
 
   useEffect(() => {
@@ -28,32 +27,42 @@ export default function Companiya() {
   // 🔹 Yangi kompaniya qo‘shish
   const addCompany = () => {
     axios
-      .post("http://localhost:5000/companies", newCompany)
+      .post("https://your-api.com/admin/companies/", newCompany) // ✅ POST API
       .then(() => {
         fetchCompanies();
-        setNewCompany({ name: "", subscription: "Basic", employees: 0, status: "Faol", lastActive: "Hozir" });
+        setNewCompany({
+          name: "",
+          subscription: "Basic",
+          employees: 0,
+          status: "Faol",
+          lastActive: "Hozir",
+        });
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error("Qo‘shishda xatolik:", err));
   };
 
   // 🔹 Kompaniyani yangilash
   const updateCompany = () => {
     if (!editingCompany) return;
     axios
-      .put(`http://localhost:5000/companies/${editingCompany.id}`, editingCompany)
+      .put(
+        `https://your-api.com/admin/companies/${editingCompany.id}/`,
+        editingCompany
+      ) // ✅ PUT API
       .then(() => {
         fetchCompanies();
         setEditingCompany(null);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => console.error("Yangilashda xatolik:", err));
   };
 
+  // 🔹 Kompaniyani o‘chirish
   const deleteCompany = (id) => {
     if (!window.confirm("Haqiqatan o‘chirmoqchimisiz?")) return;
     axios
-      .delete(`http://localhost:5000/companies/${id}`)
+      .delete(`https://your-api.com/admin/companies/${id}/`) // ✅ DELETE API
       .then(() => fetchCompanies())
-      .catch((err) => console.error(err));
+      .catch((err) => console.error("O‘chirishda xatolik:", err));
   };
 
   const filteredCompanies = companies.filter((company) =>
@@ -62,31 +71,46 @@ export default function Companiya() {
 
   return (
     <div className="companies">
-      <h2 className="companies__title">Kompaniyalar</h2>
+      <h2 className="companies__title">🏢 Kompaniyalar</h2>
 
+      {/* 🔹 Filter tugmalari */}
       <div className="companies__filters">
-        <button onClick={() => setFilter("all")} className={filter === "all" ? "btn btn--active" : "btn"}>
+        <button
+          onClick={() => setFilter("all")}
+          className={filter === "all" ? "btn btn--active" : "btn"}
+        >
           Barchasi
         </button>
-        <button onClick={() => setFilter("Faol")} className={filter === "Faol" ? "btn btn--active" : "btn"}>
+        <button
+          onClick={() => setFilter("Faol")}
+          className={filter === "Faol" ? "btn btn--active" : "btn"}
+        >
           Faol
         </button>
-        <button onClick={() => setFilter("Nofaol")} className={filter === "Nofaol" ? "btn btn--active" : "btn"}>
+        <button
+          onClick={() => setFilter("Nofaol")}
+          className={filter === "Nofaol" ? "btn btn--active" : "btn"}
+        >
           Nofaol
         </button>
       </div>
 
+      {/* 🔹 Yangi kompaniya qo‘shish formasi */}
       <div className="form">
-        <h3>Yangi kompaniya qo‘shish</h3>
+        <h3>➕ Yangi kompaniya qo‘shish</h3>
         <input
           type="text"
           placeholder="Kompaniya nomi"
           value={newCompany.name}
-          onChange={(e) => setNewCompany({ ...newCompany, name: e.target.value })}
+          onChange={(e) =>
+            setNewCompany({ ...newCompany, name: e.target.value })
+          }
         />
         <select
           value={newCompany.subscription}
-          onChange={(e) => setNewCompany({ ...newCompany, subscription: e.target.value })}
+          onChange={(e) =>
+            setNewCompany({ ...newCompany, subscription: e.target.value })
+          }
         >
           <option value="Basic">Basic</option>
           <option value="Standart">Standart</option>
@@ -96,22 +120,34 @@ export default function Companiya() {
           type="number"
           placeholder="Xodimlar soni"
           value={newCompany.employees}
-          onChange={(e) => setNewCompany({ ...newCompany, employees: e.target.value })}
+          onChange={(e) =>
+            setNewCompany({ ...newCompany, employees: e.target.value })
+          }
         />
-        <button onClick={addCompany} className="btn btn--primary">Qo‘shish</button>
+        <button onClick={addCompany} className="btn btn--primary">
+          Qo‘shish
+        </button>
       </div>
 
+      {/* 🔹 Tahrirlash formasi */}
       {editingCompany && (
         <div className="form edit-form">
-          <h3>Tahrirlash: {editingCompany.name}</h3>
+          <h3>✏️ Tahrirlash: {editingCompany.name}</h3>
           <input
             type="text"
             value={editingCompany.name}
-            onChange={(e) => setEditingCompany({ ...editingCompany, name: e.target.value })}
+            onChange={(e) =>
+              setEditingCompany({ ...editingCompany, name: e.target.value })
+            }
           />
           <select
             value={editingCompany.subscription}
-            onChange={(e) => setEditingCompany({ ...editingCompany, subscription: e.target.value })}
+            onChange={(e) =>
+              setEditingCompany({
+                ...editingCompany,
+                subscription: e.target.value,
+              })
+            }
           >
             <option value="Basic">Basic</option>
             <option value="Standart">Standart</option>
@@ -120,13 +156,26 @@ export default function Companiya() {
           <input
             type="number"
             value={editingCompany.employees}
-            onChange={(e) => setEditingCompany({ ...editingCompany, employees: e.target.value })}
+            onChange={(e) =>
+              setEditingCompany({
+                ...editingCompany,
+                employees: e.target.value,
+              })
+            }
           />
-          <button onClick={updateCompany} className="btn btn--primary">Saqlash</button>
-          <button onClick={() => setEditingCompany(null)} className="btn">Bekor qilish</button>
+          <button onClick={updateCompany} className="btn btn--primary">
+            Saqlash
+          </button>
+          <button
+            onClick={() => setEditingCompany(null)}
+            className="btn btn--secondary"
+          >
+            Bekor qilish
+          </button>
         </div>
       )}
 
+      {/* 🔹 Jadval */}
       <div className="table-wrap">
         <table className="table">
           <thead>
@@ -148,14 +197,27 @@ export default function Companiya() {
                 <td>{company.status}</td>
                 <td>{company.lastActive}</td>
                 <td>
-                  <button className="link" onClick={() => setEditingCompany(company)}>✏️ Tahrirlash</button> |{" "}
-                  <button className="link link--red" onClick={() => deleteCompany(company.id)}>🗑 O‘chirish</button>
+                  <button
+                    className="link"
+                    onClick={() => setEditingCompany(company)}
+                  >
+                    ✏️ Tahrirlash
+                  </button>{" "}
+                  |{" "}
+                  <button
+                    className="link link--red"
+                    onClick={() => deleteCompany(company.id)}
+                  >
+                    🗑 O‘chirish
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        {filteredCompanies.length === 0 && <p>Hech qanday kompaniya topilmadi.</p>}
+        {filteredCompanies.length === 0 && (
+          <p>Hech qanday kompaniya topilmadi.</p>
+        )}
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Edit2, Trash2, Lock, Unlock, Plus } from "lucide-react";
@@ -14,7 +13,7 @@ export default function AdminControll() {
   const fetchAdmins = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:5000/admins");
+      const res = await axios.get("https://regis.project1.uz/api/v1/admin/admins/");
       setAdmins(res.data || []);
     } catch (err) {
       console.error("Xatolik:", err);
@@ -32,25 +31,27 @@ export default function AdminControll() {
         role: "Admin",
         status: "Active",
       };
-      await axios.post("http://localhost:5000/admins", newAdmin);
+      await axios.post("https://regis.project1.uz/api/v1/admin/admins/", newAdmin);
       fetchAdmins();
     } catch (err) {
       console.error("Qo‘shishda xatolik:", err);
     }
   };
 
+  // 🔹 Admin o‘chirish
   const deleteAdmin = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/admins/${id}`);
+      await axios.delete(`https://regis.project1.uz/api/v1/admin/admins/${id}/`);
       fetchAdmins();
     } catch (err) {
       console.error("O‘chirishda xatolik:", err);
     }
   };
 
+  // 🔹 Admin statusini almashtirish (Active ↔ Blocked)
   const toggleStatus = async (id, status) => {
     try {
-      await axios.patch(`http://localhost:5000/admins/${id}`, {
+      await axios.patch(`https://regis.project1.uz/api/v1/admin/admins/${id}/`, {
         status: status === "Active" ? "Blocked" : "Active",
       });
       fetchAdmins();
@@ -156,4 +157,3 @@ export default function AdminControll() {
     </div>
   );
 }
-

@@ -78,7 +78,7 @@ export default function Sidebar() {
           <Bell size={20} />
           {!collapsed && <span>Notifications</span>}
         </Link>
-        <Link to={'/login'} className="menu-link">
+        <Link to={'/'} className="menu-link">
         <ArrowLeft size={20} />
         {!collapsed && <span>chiqish</span>}
         </Link>
