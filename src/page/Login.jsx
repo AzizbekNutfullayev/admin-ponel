@@ -72,7 +72,7 @@ export default function Login({ onLogin }) {
         {error && <div className="error">{error}</div>}
 
         <div style={{ marginTop: 10 }}>
-          <button className="btn" type="submit" disabled={loading}>
+          <button className="btn_button" type="submit" disabled={loading}>
             {loading ? "Kirish..." : "Kirish"}
           </button>
         </div>
