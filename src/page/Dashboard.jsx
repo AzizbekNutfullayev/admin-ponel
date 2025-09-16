@@ -18,7 +18,6 @@ export default function Dashboard() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/dashboard").then(res => console.log(res.data));
     axios.get("http://localhost:5000/transactions").then(res => setTransactions(res.data));
     axios.get("http://localhost:5000/statistics").then(res => {
       setBrands(res.data.brands || []);
@@ -31,7 +30,6 @@ export default function Dashboard() {
     axios.get("http://localhost:5000/products").then(res => setProducts(res.data));
   }, []);
 
-  const COLORS = ["#4F46E5", "#22C55E", "#F59E0B", "#EF4444", "#06B6D4", "#9333EA"];
 
   return (
     <div className="dashboard-container">
@@ -69,37 +67,40 @@ export default function Dashboard() {
 
       {/* Charts */}
       <div className="charts-grid">
+        {/* Transactions Line */}
         <div className="chart-card">
           <h3 className="chart-title">Tranzaksiyalar oqimi</h3>
-          <ResponsiveContainer width="100%" height={250}>
+          <ResponsiveContainer width="100%" height={280}>
             <LineChart data={transactions}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="day" />
-              <YAxis />
+              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+              <XAxis dataKey="day" tick={{ fill: "#374151" }} />
+              <YAxis tick={{ fill: "#374151" }} />
               <Tooltip />
-              <Line type="monotone" dataKey="value" stroke="#4F46E5" strokeWidth={2} dot={false} />
+              <Line type="monotone" dataKey="value" stroke="#4F46E5" strokeWidth={3} dot={{ r: 4 }} />
             </LineChart>
           </ResponsiveContainer>
         </div>
 
+        {/* Products Bar */}
         <div className="chart-card">
           <h3 className="chart-title">Mahsulotlar bo‘yicha ulush</h3>
-          <ResponsiveContainer width="100%" height={250}>
+          <ResponsiveContainer width="100%" height={280}>
             <BarChart data={brands}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
+              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+              <XAxis dataKey="name" tick={{ fill: "#374151" }} />
+              <YAxis tick={{ fill: "#374151" }} />
               <Tooltip />
-              <Bar dataKey="value" fill="#22C55E" radius={[8, 8, 0, 0]} />
+              <Bar dataKey="value" fill="#22C55E" radius={[10, 10, 0, 0]} barSize={40} />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
+        {/* Regions Pie */}
         <div className="chart-card">
           <h3 className="chart-title">Hududlar bo‘yicha mijozlar</h3>
-          <ResponsiveContainer width="100%" height={250}>
+          <ResponsiveContainer width="100%" height={280}>
             <PieChart>
-              <Pie data={regions} dataKey="value" nameKey="name" outerRadius={80} label>
+              <Pie data={regions} dataKey="value" nameKey="name" outerRadius={100} label>
                 {regions.map((_, index) => (
                   <Cell key={index} fill={COLORS[index % COLORS.length]} />
                 ))}
@@ -110,15 +111,16 @@ export default function Dashboard() {
           </ResponsiveContainer>
         </div>
 
+        {/* Sales by Months */}
         <div className="chart-card">
           <h3 className="chart-title">Oylar kesimidagi sotuvlar</h3>
-          <ResponsiveContainer width="100%" height={250}>
+          <ResponsiveContainer width="100%" height={280}>
             <LineChart data={months}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
+              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+              <XAxis dataKey="name" tick={{ fill: "#374151" }} />
+              <YAxis tick={{ fill: "#374151" }} />
               <Tooltip />
-              <Line type="monotone" dataKey="value" stroke="#F59E0B" strokeWidth={2} dot />
+              <Line type="monotone" dataKey="value" stroke="#F59E0B" strokeWidth={3} dot={{ r: 5 }} />
             </LineChart>
           </ResponsiveContainer>
         </div>

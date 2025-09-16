@@ -12,22 +12,22 @@ export default function Companiya() {
     lastActive: "Hozir",
   });
   const [editingCompany, setEditingCompany] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   const fetchCompanies = () => {
     axios
-      .get("  ") 
+      .get("/api/admin/companies/")
       .then((res) => setCompanies(res.data))
-      .catch((err) => console.error("Xatolik:", err));
+      .catch((err) => console.error("GET xatolik:", err));
   };
 
   useEffect(() => {
     fetchCompanies();
   }, []);
 
-  // 🔹 Yangi kompaniya qo‘shish
   const addCompany = () => {
     axios
-      .post("https://your-api.com/admin/companies/", newCompany) // ✅ POST API
+      .post("/api/admin/companies/", newCompany)
       .then(() => {
         fetchCompanies();
         setNewCompany({
@@ -37,32 +37,28 @@ export default function Companiya() {
           status: "Faol",
           lastActive: "Hozir",
         });
+        setShowModal(false);
       })
-      .catch((err) => console.error("Qo‘shishda xatolik:", err));
+      .catch((err) => console.error("POST xatolik:", err));
   };
 
-  // 🔹 Kompaniyani yangilash
   const updateCompany = () => {
     if (!editingCompany) return;
     axios
-      .put(
-        `https://your-api.com/admin/companies/${editingCompany.id}/`,
-        editingCompany
-      ) // ✅ PUT API
+      .put(`/api/admin/companies/${editingCompany.id}/`, editingCompany)
       .then(() => {
         fetchCompanies();
         setEditingCompany(null);
       })
-      .catch((err) => console.error("Yangilashda xatolik:", err));
+      .catch((err) => console.error("PUT xatolik:", err));
   };
 
-  // 🔹 Kompaniyani o‘chirish
   const deleteCompany = (id) => {
     if (!window.confirm("Haqiqatan o‘chirmoqchimisiz?")) return;
     axios
-      .delete(`https://your-api.com/admin/companies/${id}/`) // ✅ DELETE API
+      .delete(`/api/admin/companies/${id}/`)
       .then(() => fetchCompanies())
-      .catch((err) => console.error("O‘chirishda xatolik:", err));
+      .catch((err) => console.error("DELETE xatolik:", err));
   };
 
   const filteredCompanies = companies.filter((company) =>
@@ -71,111 +67,25 @@ export default function Companiya() {
 
   return (
     <div className="companies">
-      <h2 className="companies__title">🏢 Kompaniyalar</h2>
+      <div className="companies__header">
+        <h2>🏢 Kompaniyalar</h2>
+        <button className="btn btn--primary" onClick={() => setShowModal(true)}>
+          ➕ Kompaniya qo‘shish
+        </button>
+      </div>
 
-      {/* 🔹 Filter tugmalari */}
       <div className="companies__filters">
-        <button
-          onClick={() => setFilter("all")}
-          className={filter === "all" ? "btn btn--active" : "btn"}
-        >
-          Barchasi
-        </button>
-        <button
-          onClick={() => setFilter("Faol")}
-          className={filter === "Faol" ? "btn btn--active" : "btn"}
-        >
-          Faol
-        </button>
-        <button
-          onClick={() => setFilter("Nofaol")}
-          className={filter === "Nofaol" ? "btn btn--active" : "btn"}
-        >
-          Nofaol
-        </button>
-      </div>
-
-      {/* 🔹 Yangi kompaniya qo‘shish formasi */}
-      <div className="form">
-        <h3>➕ Yangi kompaniya qo‘shish</h3>
-        <input
-          type="text"
-          placeholder="Kompaniya nomi"
-          value={newCompany.name}
-          onChange={(e) =>
-            setNewCompany({ ...newCompany, name: e.target.value })
-          }
-        />
-        <select
-          value={newCompany.subscription}
-          onChange={(e) =>
-            setNewCompany({ ...newCompany, subscription: e.target.value })
-          }
-        >
-          <option value="Basic">Basic</option>
-          <option value="Standart">Standart</option>
-          <option value="Premium">Premium</option>
-        </select>
-        <input
-          type="number"
-          placeholder="Xodimlar soni"
-          value={newCompany.employees}
-          onChange={(e) =>
-            setNewCompany({ ...newCompany, employees: e.target.value })
-          }
-        />
-        <button onClick={addCompany} className="btn btn--primary">
-          Qo‘shish
-        </button>
-      </div>
-
-      {/* 🔹 Tahrirlash formasi */}
-      {editingCompany && (
-        <div className="form edit-form">
-          <h3>✏️ Tahrirlash: {editingCompany.name}</h3>
-          <input
-            type="text"
-            value={editingCompany.name}
-            onChange={(e) =>
-              setEditingCompany({ ...editingCompany, name: e.target.value })
-            }
-          />
-          <select
-            value={editingCompany.subscription}
-            onChange={(e) =>
-              setEditingCompany({
-                ...editingCompany,
-                subscription: e.target.value,
-              })
-            }
-          >
-            <option value="Basic">Basic</option>
-            <option value="Standart">Standart</option>
-            <option value="Premium">Premium</option>
-          </select>
-          <input
-            type="number"
-            value={editingCompany.employees}
-            onChange={(e) =>
-              setEditingCompany({
-                ...editingCompany,
-                employees: e.target.value,
-              })
-            }
-          />
-          <button onClick={updateCompany} className="btn btn--primary">
-            Saqlash
-          </button>
+        {["all", "Faol", "Nofaol"].map((f) => (
           <button
-            onClick={() => setEditingCompany(null)}
-            className="btn btn--secondary"
+            key={f}
+            onClick={() => setFilter(f)}
+            className={filter === f ? "btn btn--active" : "btn"}
           >
-            Bekor qilish
+            {f === "all" ? "Barchasi" : f}
           </button>
-        </div>
-      )}
+        ))}
+      </div>
 
-      {/* 🔹 Jadval */}
       <div className="table-wrap">
         <table className="table">
           <thead>
@@ -194,7 +104,17 @@ export default function Companiya() {
                 <td>{company.name}</td>
                 <td>{company.subscription}</td>
                 <td>{company.employees}</td>
-                <td>{company.status}</td>
+                <td>
+                  <span
+                    className={
+                      company.status === "Faol"
+                        ? "badge badge--green"
+                        : "badge badge--red"
+                    }
+                  >
+                    {company.status}
+                  </span>
+                </td>
                 <td>{company.lastActive}</td>
                 <td>
                   <button
@@ -219,6 +139,105 @@ export default function Companiya() {
           <p>Hech qanday kompaniya topilmadi.</p>
         )}
       </div>
+
+      {/* 🔹 Yangi kompaniya qo‘shish Modal */}
+      {showModal && (
+        <div className="modal">
+          <div className="modal__content">
+            <h3>➕ Yangi kompaniya qo‘shish</h3>
+            <input
+              type="text"
+              placeholder="Kompaniya nomi"
+              value={newCompany.name}
+              onChange={(e) =>
+                setNewCompany({ ...newCompany, name: e.target.value })
+              }
+            />
+            <select
+              value={newCompany.subscription}
+              onChange={(e) =>
+                setNewCompany({ ...newCompany, subscription: e.target.value })
+              }
+            >
+              <option value="Basic">Basic</option>
+              <option value="Standart">Standart</option>
+              <option value="Premium">Premium</option>
+            </select>
+            <input
+              type="number"
+              placeholder="Xodimlar soni"
+              value={newCompany.employees}
+              onChange={(e) =>
+                setNewCompany({
+                  ...newCompany,
+                  employees: Number(e.target.value),
+                })
+              }
+            />
+            <div className="modal__actions">
+              <button onClick={addCompany} className="btn btn--primary">
+                Qo‘shish
+              </button>
+              <button
+                onClick={() => setShowModal(false)}
+                className="btn btn--secondary"
+              >
+                Bekor qilish
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 🔹 Tahrirlash formasi */}
+      {editingCompany && (
+        <div className="modal">
+          <div className="modal__content">
+            <h3>✏️ Tahrirlash: {editingCompany.name}</h3>
+            <input
+              type="text"
+              value={editingCompany.name}
+              onChange={(e) =>
+                setEditingCompany({ ...editingCompany, name: e.target.value })
+              }
+            />
+            <select
+              value={editingCompany.subscription}
+              onChange={(e) =>
+                setEditingCompany({
+                  ...editingCompany,
+                  subscription: e.target.value,
+                })
+              }
+            >
+              <option value="Basic">Basic</option>
+              <option value="Standart">Standart</option>
+              <option value="Premium">Premium</option>
+            </select>
+            <input
+              type="number"
+              value={editingCompany.employees}
+              onChange={(e) =>
+                setEditingCompany({
+                  ...editingCompany,
+                  employees: Number(e.target.value),
+                })
+              }
+            />
+            <div className="modal__actions">
+              <button onClick={updateCompany} className="btn btn--primary">
+                Saqlash
+              </button>
+              <button
+                onClick={() => setEditingCompany(null)}
+                className="btn btn--secondary"
+              >
+                Bekor qilish
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

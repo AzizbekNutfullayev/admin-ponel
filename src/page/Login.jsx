@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Login({ onLogin }) {
-  const [username, setUsername] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -12,48 +13,49 @@ export default function Login({ onLogin }) {
     e.preventDefault();
     setError("");
 
-    console.log(" Kiritilgan login ma'lumotlari:", { username, password });
-
-      if (!username.trim() || !password) {
-      setError("Iltimos, foydalanuvchi nomi va parolni kiriting.");
-      console.log("❌ Username yoki password bo‘sh!");
+    if (!phone.trim() || !password) {
+      setError("Iltimos, telefon raqam va parolni kiriting.");
       return;
     }
 
     setLoading(true);
-    console.log("⏳ Login jarayoni boshlandi...");
 
-    if (username === "admin" && password === "1234") {
-      console.log(" Username va password to‘g‘ri!");
-      if (onLogin) {
-        console.log(" onLogin chaqirilmoqda...");
-        onLogin();
-      }
-      console.log("➡️ Navigating to /");
+    try {
+      const res = await axios.post("/api/users/login/", {
+        phone_number: phone,
+        password: password
+      });
+    
+      console.log("Login muvaffaqiyatli:", res.data);
+    
+      localStorage.setItem("access", res.data.access);
+      localStorage.setItem("refresh", res.data.refresh);
+    
+      if (onLogin) onLogin();
+    
       navigate("/loyout");
-    } else {
-      console.log("❌ 1Login yoki parol xato!");
+    } catch (err) {
+      console.error("❌ Login xatolik:", err);
       setError("Login yoki parol xato!");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   }
 
   return (
     <div className="login-bg">
       <form className="login-card" onSubmit={handleSubmit}>
         <h2 className="login-title">Kirish</h2>
-        <p className="login-sub">Iltimos, foydalanuvchi nomi va parol bilan tizimga kiring.</p>
+        <p className="login-sub">Telefon raqam va parol bilan tizimga kiring</p>
 
         <div className="input-group">
-          <label htmlFor="username">Foydalanuvchi nomi</label>
+          <label htmlFor="phone">Telefon raqam</label>
           <input
-            id="username"
+            id="phone"
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder=" admin"
-            autoComplete="username"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="raqam kiriting"
           />
         </div>
 
@@ -64,8 +66,7 @@ export default function Login({ onLogin }) {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="1234"
-            autoComplete="current-password"
+            placeholder="password"
           />
         </div>
 

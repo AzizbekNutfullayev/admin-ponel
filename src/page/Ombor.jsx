@@ -1,7 +1,25 @@
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Plus, Edit2, Trash2, Search, Archive, Package, Box } from "lucide-react";
+import {
+  Plus,
+  Edit2,
+  Trash2,
+  Search,
+  Archive,
+  Package,
+  Box,
+} from "lucide-react";
+import {
+  BarChart,
+  Bar,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 export default function Ombor() {
   const [warehouses, setWarehouses] = useState([]);
@@ -51,9 +69,15 @@ export default function Ombor() {
     try {
       if (!form.name.trim()) return alert("Nomi kiritilishi shart");
       if (editing) {
-        await axios.patch(`http://localhost:5000/warehouses/${editing.id}`, form);
+        await axios.patch(
+          `http://localhost:5000/warehouses/${editing.id}`,
+          form
+        );
       } else {
-        await axios.post("http://localhost:5000/warehouses", { ...form, status: "active" });
+        await axios.post("http://localhost:5000/warehouses", {
+          ...form,
+          status: "active",
+        });
       }
       await fetchAll();
       setShowModal(false);
@@ -74,14 +98,16 @@ export default function Ombor() {
     }
   };
 
-  // Adjust stock for a product inside a warehouse
+  // Adjust stock
   const adjustStock = async (warehouseId, productId, delta) => {
     try {
-      // API: POST /warehouses/:id/adjust-stock  body: { productId, delta }
-      await axios.post(`http://localhost:5000/warehouses/${warehouseId}/adjust-stock`, {
-        productId,
-        delta,
-      });
+      await axios.post(
+        `http://localhost:5000/warehouses/${warehouseId}/adjust-stock`,
+        {
+          productId,
+          delta,
+        }
+      );
       await fetchAll();
     } catch (err) {
       console.error("Stock yangilash xatosi:", err);
@@ -98,12 +124,27 @@ export default function Ombor() {
         .includes(query.trim().toLowerCase())
     );
 
+  // Chart data
+  const barData = warehouses.map((w) => ({
+    name: w.name,
+    capacity: w.capacity || 0,
+  }));
+
+  const lineData = warehouses.map((w) => ({
+    name: w.name,
+    products: (w.products || []).length,
+  }));
+
   return (
     <div className="ombor">
       <div className="ombor__header">
         <div>
-          <h2 className="ombor__title"><Archive size={20} /> Omborlar boshqaruvi</h2>
-          <p className="ombor__sub">Omborlar, qoldiqlar va inventar ustidan to‘liq nazorat.</p>
+          <h2 className="ombor__title">
+            <Archive size={20} /> Omborlar boshqaruvi
+          </h2>
+          <p className="ombor__sub">
+            Omborlar, qoldiqlar va inventar ustidan to‘liq nazorat.
+          </p>
         </div>
 
         <div className="ombor__controls">
@@ -133,6 +174,35 @@ export default function Ombor() {
         </div>
       </div>
 
+      {/* Statistika chartlar */}
+      <div className="charts">
+        <div className="chart-card">
+          <h4>Ombor sig‘imlari</h4>
+          <ResponsiveContainer width="100%" height={250}>
+            <BarChart data={barData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="capacity" fill="#8884d8" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="chart-card">
+          <h4>Omborlardagi mahsulotlar soni</h4>
+          <ResponsiveContainer width="100%" height={250}>
+            <LineChart data={lineData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Line type="monotone" dataKey="products" stroke="#82ca9d" />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
       {loading ? (
         <p className="muted">⏳ Yuklanmoqda...</p>
       ) : (
@@ -145,11 +215,22 @@ export default function Ombor() {
                   <div className="wc-left">
                     <h3 className="wc-name">{w.name}</h3>
                     <p className="wc-loc">{w.location}</p>
-                    <div className={`wc-status wc-status--${w.status || "active"}`}>{w.status}</div>
+                    <div
+                      className={`wc-status wc-status--${w.status || "active"}`}
+                    >
+                      {w.status}
+                    </div>
                   </div>
                   <div className="wc-actions">
-                    <button className="icon-btn" onClick={() => openEdit(w)}><Edit2 size={16} /></button>
-                    <button className="icon-btn danger" onClick={() => deleteWarehouse(w.id)}><Trash2 size={16} /></button>
+                    <button className="icon-btn" onClick={() => openEdit(w)}>
+                      <Edit2 size={16} />
+                    </button>
+                    <button
+                      className="icon-btn danger"
+                      onClick={() => deleteWarehouse(w.id)}
+                    >
+                      <Trash2 size={16} />
+                    </button>
                   </div>
                 </div>
 
@@ -162,7 +243,9 @@ export default function Ombor() {
                     </div>
                   </div>
 
-                  <div className="wc-stock-title">Mahsulotlar ({(w.products || []).length})</div>
+                  <div className="wc-stock-title">
+                    Mahsulotlar ({(w.products || []).length})
+                  </div>
 
                   <div className="wc-products">
                     {(w.products || []).slice(0, 6).map((p) => (
@@ -171,24 +254,38 @@ export default function Ombor() {
                           <Box size={16} />
                           <div>
                             <div className="prod-name">{p.name}</div>
-                            <div className="muted small">Qoldiq: {p.stock}</div>
+                            <div className="muted small">
+                              Qoldiq: {p.stock}
+                            </div>
                           </div>
                         </div>
                         <div className="prod-actions">
-                          <button className="tiny" onClick={() => adjustStock(w.id, p.id, +1)}>+1</button>
-                          <button className="tiny" onClick={() => adjustStock(w.id, p.id, -1)}>-1</button>
+                          <button
+                            className="tiny"
+                            onClick={() => adjustStock(w.id, p.id, +1)}
+                          >
+                            +1
+                          </button>
+                          <button
+                            className="tiny"
+                            onClick={() => adjustStock(w.id, p.id, -1)}
+                          >
+                            -1
+                          </button>
                         </div>
                       </div>
                     ))}
 
-                    {(w.products || []).length === 0 && <div className="muted small">Mahsulot mavjud emas</div>}
+                    {(w.products || []).length === 0 && (
+                      <div className="muted small">Mahsulot mavjud emas</div>
+                    )}
                   </div>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Table view for wide screens */}
+          {/* Table view */}
           <div className="table-wrap">
             <table className="table-ombor">
               <thead>
@@ -210,16 +307,34 @@ export default function Ombor() {
                     <td>{w.location}</td>
                     <td>{w.capacity || 0}</td>
                     <td>{(w.products || []).length}</td>
-                    <td><span className={`wc-badge wc-badge--${w.status || "active"}`}>{w.status}</span></td>
                     <td>
-                      <button className="btn-ico" onClick={() => openEdit(w)}><Edit2 size={16} /></button>
-                      <button className="btn-ico danger" onClick={() => deleteWarehouse(w.id)}><Trash2 size={16} /></button>
+                      <span
+                        className={`wc-badge wc-badge--${w.status || "active"}`}
+                      >
+                        {w.status}
+                      </span>
+                    </td>
+                    <td>
+                      <button
+                        className="btn-ico"
+                        onClick={() => openEdit(w)}
+                      >
+                        <Edit2 size={16} />
+                      </button>
+                      <button
+                        className="btn-ico danger"
+                        onClick={() => deleteWarehouse(w.id)}
+                      >
+                        <Trash2 size={16} />
+                      </button>
                     </td>
                   </tr>
                 ))}
                 {filtered.length === 0 && (
                   <tr>
-                    <td colSpan="7" style={{ textAlign: "center" }}>Hech qanday ombor topilmadi</td>
+                    <td colSpan="7" style={{ textAlign: "center" }}>
+                      Hech qanday ombor topilmadi
+                    </td>
                   </tr>
                 )}
               </tbody>
@@ -235,20 +350,36 @@ export default function Ombor() {
             <h3>{editing ? "Omborni tahrirlash" : "Yangi ombor qo'shish"}</h3>
             <div className="form-row">
               <label>Ismi</label>
-              <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+              <input
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+              />
             </div>
             <div className="form-row">
               <label>Manzili</label>
-              <input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} />
+              <input
+                value={form.location}
+                onChange={(e) => setForm({ ...form, location: e.target.value })}
+              />
             </div>
             <div className="form-row">
               <label>Sig‘imi</label>
-              <input type="number" value={form.capacity} onChange={(e) => setForm({ ...form, capacity: Number(e.target.value) })} />
+              <input
+                type="number"
+                value={form.capacity}
+                onChange={(e) =>
+                  setForm({ ...form, capacity: Number(e.target.value) })
+                }
+              />
             </div>
 
             <div className="modal-actions">
-              <button className="btn" onClick={() => setShowModal(false)}>Bekor</button>
-              <button className="btn primary" onClick={saveWarehouse}>{editing ? "Saqlash" : "Qo'shish"}</button>
+              <button className="btn" onClick={() => setShowModal(false)}>
+                Bekor
+              </button>
+              <button className="btn primary" onClick={saveWarehouse}>
+                {editing ? "Saqlash" : "Qo'shish"}
+              </button>
             </div>
           </div>
         </div>
@@ -256,5 +387,4 @@ export default function Ombor() {
     </div>
   );
 }
-
 

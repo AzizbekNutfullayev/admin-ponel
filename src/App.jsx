@@ -10,7 +10,7 @@ import AdminControll from './page/AdminControll';
 import Ombor from './page/Ombor';
 import Notifications from './page/Notifications';
 import HelpCenter from './page/Help Center';
-import Login from './page/Login'; 
+import Login from './page/Login';
 
 export default function App() {
   const [isAuthenticate, setIsAuthenticate] = useState(false);
@@ -19,24 +19,19 @@ export default function App() {
     <div>
       <BrowserRouter>
         <Routes>
-=          <Route
-            path="/"
-            element={<Login onLogin={() => setIsAuthenticate(true)} />}
-          />
+          <Route path="/" element={<Login />} />
+          <Route path="/loyout" element={<Loyout />}>
+            <Route path="settings" element={<Settings />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="users" element={<Users />} />
+            <Route path="analytics" element={<Statistica />} />
+            <Route path="companiya" element={<Companiya />} />
+            <Route path="admincontrollers" element={<AdminControll />} />
+            <Route path="ombor" element={<Ombor />} />
+            <Route path="notifications" element={<Notifications />} />
+            <Route path="help_centr" element={<HelpCenter />} />
+          </Route>
 
-          {isAuthenticate && (
-            <Route path="/loyout" element={<Loyout />}>
-              <Route path="settings" element={<Settings />} />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="users" element={<Users />} />
-              <Route path="analytics" element={<Statistica />} />
-              <Route path="companiya" element={<Companiya />} />
-              <Route path="admincontrollers" element={<AdminControll />} />
-              <Route path="ombor" element={<Ombor />} />
-              <Route path="notifications" element={<Notifications />} />
-              <Route path="help_centr" element={<HelpCenter />} />
-            </Route>
-          )}
         </Routes>
       </BrowserRouter>
     </div>
