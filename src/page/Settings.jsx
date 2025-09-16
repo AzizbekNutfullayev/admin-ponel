@@ -21,11 +21,10 @@ export default function Settings() {
       .catch((err) => console.error(err));
   }, []);
 
-  // 🔹 Profilni yangilash
   const updateProfile = () => {
     axios
       .put("http://localhost:5000/settings", settings)
-      .then(() => alert("✅ Profil yangilandi!"))
+      .then(() => alert(" Profil yangilandi!"))
       .catch((err) => console.error(err));
   };
 
