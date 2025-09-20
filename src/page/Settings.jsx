@@ -8,24 +8,31 @@ export default function Settings() {
     language: "uz",
     theme: "light",
   });
+
   const [passwords, setPasswords] = useState({
     oldPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
 
+  // 🔹 Sozlamalarni olish
   useEffect(() => {
     axios
-      .get("http://localhost:5000/settings")
+      .get("/api/admin/settings/", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("access")}` },
+      })
       .then((res) => setSettings(res.data))
-      .catch((err) => console.error(err));
+      .catch((err) => console.error("GET xato:", err));
   }, []);
 
-  const updateProfile = () => {
+  // 🔹 Profil va tizim sozlamalarini yangilash
+  const updateSettings = () => {
     axios
-      .put("http://localhost:5000/settings", settings)
-      .then(() => alert(" Profil yangilandi!"))
-      .catch((err) => console.error(err));
+      .patch("/api/admin/settings/", settings, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("access")}` },
+      })
+      .then(() => alert("✅ Sozlamalar yangilandi!"))
+      .catch((err) => console.error("PATCH xato:", err));
   };
 
   // 🔹 Parolni yangilash
@@ -35,9 +42,11 @@ export default function Settings() {
       return;
     }
     axios
-      .put("http://localhost:5000/settings/password", passwords)
+      .patch("/api/admin/settings/password/", passwords, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("access")}` },
+      })
       .then(() => alert("✅ Parol yangilandi!"))
-      .catch((err) => console.error(err));
+      .catch((err) => console.error("PATCH password xato:", err));
   };
 
   return (
@@ -63,7 +72,7 @@ export default function Settings() {
             onChange={(e) => setSettings({ ...settings, email: e.target.value })}
           />
         </label>
-        <button className="btn btn--primary" onClick={updateProfile}>
+        <button className="btn btn--primary" onClick={updateSettings}>
           💾 Saqlash
         </button>
       </div>
@@ -92,7 +101,9 @@ export default function Settings() {
           <input
             type="password"
             value={passwords.confirmPassword}
-            onChange={(e) => setPasswords({ ...passwords, confirmPassword: e.target.value })}
+            onChange={(e) =>
+              setPasswords({ ...passwords, confirmPassword: e.target.value })
+            }
           />
         </label>
         <button className="btn btn--primary" onClick={updatePassword}>
@@ -124,7 +135,7 @@ export default function Settings() {
             <option value="dark">🌙 Qora tema</option>
           </select>
         </label>
-        <button className="btn btn--primary" onClick={updateProfile}>
+        <button className="btn btn--primary" onClick={updateSettings}>
           💾 Saqlash
         </button>
       </div>

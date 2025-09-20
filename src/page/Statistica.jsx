@@ -15,70 +15,76 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+const COLORS = ["#6366F1", "#22C55E", "#F59E0B", "#EF4444", "#0EA5E9"];
+
 export default function Statistica() {
   const [statistics, setStatistics] = useState({
     transactions: [],
-    brands: [],
-    regions: [],
-    months: [],
-    users: [],
-    clients: [],
     companies: [],
-    products: [],
-    revenue: [],
-    activeUsers: [],
-    subscriptions: [],
-    securityLogs: [],
+    users: [],
+    topSales: [],
   });
 
   useEffect(() => {
+    const token = localStorage.getItem("access");
+
+    // Umumiy statistika
     axios
       .get("/api/admin/statistics/", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access")}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        console.log("API javobi:", res.data);
-  
+        console.log("General Statistics:", res.data);
+
         const transactions = [
-          { name: "Kunlik", value: res.data.transactions.daily_transactions || 0 },
-          { name: "Top mahsulotlar", value: res.data.transactions.monthly_top_products || 0 },
+          { name: "Kunlik tranzaksiya", value: res.data.transactions?.daily_transactions || 0 },
+          { name: "Oylik tranzaksiya", value: res.data.transactions?.monthly_top_products || 0 },
         ];
-  
+
         const users = [
-          { name: "Faol foydalanuvchilar", value: res.data.users.active || 0 },
+          { name: "Faol foydalanuvchilar", value: res.data.users?.active || 0 },
         ];
-  
+
         const companies = [
-          { name: "Jami kompaniyalar", value: res.data.companies.total || 0 },
-          { name: "Tez orada tugaydigan", value: res.data.companies.expiring_soon || 0 },
+          { name: "Jami kompaniyalar", value: res.data.companies?.total || 0 },
+          { name: "Tez orada tugaydigan", value: res.data.companies?.expiring_soon || 0 },
         ];
-  
-        setStatistics({
+
+        setStatistics((prev) => ({
+          ...prev,
           transactions,
           users,
           companies,
-        });
+        }));
       })
-      .catch((err) =>
-        console.error("Xatolik:", err.response?.data || err.message)
-      );
+      .catch((err) => console.error("General statistics error:", err));
+
+    // Top Sales
+    axios
+      .get("/api/admin/statistics/top-sales/", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        console.log("Top Sales:", res.data);
+        setStatistics((prev) => ({
+          ...prev,
+          topSales: res.data || [],
+        }));
+      })
+      .catch((err) => console.error("Top sales error:", err));
   }, []);
-    
 
   return (
     <div className="dashboard">
       <h2 className="dashboard__title">📊 Statistika Paneli</h2>
 
-      {/* Grafiklar */}
       <div className="charts-grid">
         {/* Transactions → Line */}
         <div className="card">
           <h3>Tranzaksiyalar</h3>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={statistics.transactions}>
-              <XAxis dataKey="day" />
+              <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
               <Legend />
@@ -87,19 +93,19 @@ export default function Statistica() {
           </ResponsiveContainer>
         </div>
 
-        {/* Brands → Pie */}
+        {/* Top Sales → Pie */}
         <div className="card">
-          <h3>Mahsulotlar ulushi</h3>
+          <h3>Top Mahsulotlar</h3>
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
               <Pie
-                data={statistics.brands}
-                dataKey="value"
-                nameKey="name"
+                data={statistics.topSales}
+                dataKey="sales"
+                nameKey="product"
                 outerRadius={100}
                 label
               >
-                {statistics.brands?.map((_, i) => (
+                {statistics.topSales.map((_, i) => (
                   <Cell key={i} fill={COLORS[i % COLORS.length]} />
                 ))}
               </Pie>
@@ -108,11 +114,11 @@ export default function Statistica() {
           </ResponsiveContainer>
         </div>
 
-        {/* Regions → Bar */}
+        {/* Companies → Bar */}
         <div className="card">
-          <h3>Hududlar bo‘yicha faoliyat</h3>
+          <h3>Kompaniyalar</h3>
           <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={statistics.regions}>
+            <BarChart data={statistics.companies}>
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
@@ -122,52 +128,19 @@ export default function Statistica() {
           </ResponsiveContainer>
         </div>
 
-        {/* Months → Line */}
+        {/* Users → Bar */}
         <div className="card">
-          <h3>Oylik ko‘rsatkichlar</h3>
+          <h3>Foydalanuvchilar</h3>
           <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={statistics.months}>
+            <BarChart data={statistics.users}>
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey="value" stroke="#DC2626" strokeWidth={2} />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-
-        {/* Revenue → Bar */}
-        <div className="card">
-          <h3>Daromad (Revenue)</h3>
-          <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={statistics.revenue}>
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="amount" fill="#FACC15" barSize={40} />
+              <Bar dataKey="value" fill="#0EA5E9" barSize={40} />
             </BarChart>
           </ResponsiveContainer>
         </div>
-
-        {/* Active Users → Line */}
-        <div className="card">
-          <h3>Faol foydalanuvchilar</h3>
-          <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={statistics.activeUsers}>
-              <XAxis dataKey="date" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="count" stroke="#0EA5E9" strokeWidth={2} />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
-
-      {/* Jadvallar qismi siz yozgandek qoladi */}
-      <div className="tables-grid">
-        {/* Users, Clients, Companies, Products, Subscriptions, SecurityLogs */}
       </div>
     </div>
   );

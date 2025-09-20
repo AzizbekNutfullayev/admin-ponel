@@ -145,7 +145,6 @@ const Companiya = () => {
         )}
       </div>
 
-      {/* 🔹 Edit Modal */}
       {editCompany && (
         <div className="modal">
           <div className="modal-content">

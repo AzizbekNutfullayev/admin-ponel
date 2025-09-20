@@ -70,7 +70,7 @@ export default function Sidebar() {
 
       {/* Bottom */}
       <div className="sidebar-bottom">
-        <Link to="/help_centr" className="menu-link">
+        <Link to="help_centr" className="menu-link">
           <HelpCircle size={20} />
           {!collapsed && <span>Help Center</span>}
         </Link>
