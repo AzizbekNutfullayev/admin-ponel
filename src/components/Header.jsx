@@ -42,6 +42,9 @@ export default function Header({ apiAdminUrl = "http://localhost:5000/admins" })
   };
 
   return (
+    <div className="container_header">
+
+ 
     <header className="app-header">
       {/* Left side - Admin */}
       <div className="header-left-header" ref={menuRef}>
@@ -81,5 +84,6 @@ export default function Header({ apiAdminUrl = "http://localhost:5000/admins" })
         </div>
       </div>
     </header>
+    </div>
   );
 }
