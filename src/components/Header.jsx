@@ -6,14 +6,13 @@ export default function Header({ apiAdminUrl = "http://localhost:5000/admins" })
   const [lang, setLang] = useState(localStorage.getItem("appLang") || "uz");
   const [langOpen, setLangOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [search, setSearch] = useState("");
   const langRef = useRef(null);
   const menuRef = useRef(null);
 
   useEffect(() => {
-    // Try to fetch admin info (optional). If fails, fallback to default above.
-    axios.get(apiAdminUrl)
+    axios.get(apiAdminUrl)  
       .then(res => {
-        // If API returns array or object — handle common shapes
         const data = res.data;
         if (Array.isArray(data) && data.length) {
           setAdmin({ name: data[0].name || "Admin", image: data[0].image || admin.image });
@@ -21,16 +20,13 @@ export default function Header({ apiAdminUrl = "http://localhost:5000/admins" })
           setAdmin({ name: data.name, image: data.image || admin.image });
         }
       })
-      .catch(() => {
-        // ignore, keep default
-      });
+      .catch(() => {});
   }, [apiAdminUrl]);
 
   useEffect(() => {
     localStorage.setItem("appLang", lang);
   }, [lang]);
 
-  // Close dropdowns when clicking outside
   useEffect(() => {
     function handleClick(e) {
       if (langRef.current && !langRef.current.contains(e.target)) setLangOpen(false);
@@ -43,55 +39,43 @@ export default function Header({ apiAdminUrl = "http://localhost:5000/admins" })
   const changeLang = (l) => {
     setLang(l);
     setLangOpen(false);
-    // optionally: emit event or call API to save preference
   };
 
   return (
     <header className="app-header">
-      <div className="header-left">
-        <div className="admin-info" ref={menuRef}>
-          <img className="admin-avatar" src={admin.image} alt="Admin avatar" />
-          <div className="admin-name">{admin.name}</div>
+      {/* Left side - Admin */}
+      <div className="header-left-header" ref={menuRef}>
+        <img className="admin-avatar-header" src={admin.image} alt="Admin avatar" />
+        <div className="admin-name-header">{admin.name}</div>
 
-          <button
-            className="profile-toggle"
-            onClick={() => setMenuOpen(prev => !prev)}
-            aria-haspopup="true"
-            aria-expanded={menuOpen}
-            aria-label="Profile menu"
-          >
-            ▾
-          </button>
 
-          {menuOpen && (
-            <div className="profile-menu">
-              <button className="profile-item" onClick={() => { window.location.href = "/settings"; }}>
-                Sozlamalar
-              </button>
-              <button className="profile-item profile-logout" onClick={() => { alert("Chiqish..."); }}>
-                Chiqish
-              </button>
-            </div>
-          )}
-        </div>
       </div>
 
-      <div className="header-right">
-        <div className="lang-switch" ref={langRef}>
+      {/* Right side - Search + Lang */}
+      <div className="header-right-header">
+        {/* Search */}
+        <div className="search-box-header">
+          <input
+            type="text"
+            placeholder="🔍 Qidirish..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+
+        {/* Language */}
+        <div className="lang-switch-header" ref={langRef}>
           <button
-            className="lang-btn"
+            className="lang-btn-header"
             onClick={() => setLangOpen(prev => !prev)}
-            aria-haspopup="true"
-            aria-expanded={langOpen}
           >
-            {lang.toUpperCase()}
-            <span className="caret">▾</span>
+            {lang.toUpperCase()} ▾
           </button>
           {langOpen && (
-            <div className="lang-dropdown" role="menu">
-              <button className={`lang-item ${lang === "uz" ? "active" : ""}`} onClick={() => changeLang("uz")}>Oʻzbekcha (UZ)</button>
-              <button className={`lang-item ${lang === "ru" ? "active" : ""}`} onClick={() => changeLang("ru")}>Русский (RU)</button>
-              <button className={`lang-item ${lang === "en" ? "active" : ""}`} onClick={() => changeLang("en")}>English (EN)</button>
+            <div className="lang-dropdown-header">
+              <button className={`lang-item-header ${lang === "uz" ? "active-header" : ""}`} onClick={() => changeLang("uz")}>🇺🇿 UZ</button>
+              <button className={`lang-item-header ${lang === "ru" ? "active-header" : ""}`} onClick={() => changeLang("ru")}>🇷🇺 RU</button>
+              <button className={`lang-item-header ${lang === "en" ? "active-header" : ""}`} onClick={() => changeLang("en")}>🇬🇧 EN</button>
             </div>
           )}
         </div>

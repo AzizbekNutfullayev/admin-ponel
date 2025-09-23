@@ -49,11 +49,6 @@ export default function Sidebar() {
         </button>
       </div>
 
-      {/* Search */}
-      <div className="search-box">
-        <Search size={16} />
-        {!collapsed && <input type="text" placeholder="Search..." />}
-      </div>
 
       {/* Menu */}
       <ul className="sidebar-menu">

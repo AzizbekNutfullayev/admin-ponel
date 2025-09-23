@@ -152,7 +152,7 @@ const Product = () => {
       <h1>📦 Products</h1>
 
       {/* Form */}
-      <div className="form-container">
+      <div className="form_container_product">
         <input
           placeholder="Title"
           value={form.title}
@@ -200,19 +200,19 @@ const Product = () => {
             setForm({ ...form, expiration_date: e.target.value })
           }
         />
-        <button className="btn add" onClick={addProduct}>
+        <button className="btn_add_product" onClick={addProduct}>
           ➕ Add
         </button>
       </div>
 
       {/* Products list */}
-      <div className="list-container">
+      <div className="list-container_product">
         {products.map((p) => (
           <div key={p.id} className="card">
             <h3>{p.title}</h3>
             <p>💰 {p.selling_price} so‘m</p>
             <p>📦 {p.quantity} {p.unit}</p>
-            <div className="card-actions">
+            <div className="card-actions_product">
               <button className="btn edit" onClick={() => updateProduct(p.id)}>
                 ✏️ Edit
               </button>

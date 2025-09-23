@@ -56,7 +56,7 @@ const AdminController = () => {
 
       <div className="grid-container">
         {/* Users Pie Chart */}
-        <div className="card chart-card">
+        <div className="card_con chart-card">
           <h2>👤 Active Users</h2>
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
@@ -85,7 +85,7 @@ const AdminController = () => {
         </div>
 
         {/* Companies Bar Chart */}
-        <div className="card chart-card">
+        <div className="card_con chart-card">
           <h2>🏢 Companies</h2>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={companies}>
@@ -99,7 +99,7 @@ const AdminController = () => {
         </div>
 
         {/* Products Bar Chart */}
-        <div className="card chart-card">
+        <div className="card_con chart-card">
           <h2>📦 Products (Selling Price)</h2>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={products}>
@@ -113,7 +113,7 @@ const AdminController = () => {
         </div>
 
         {/* Warehouses Pie Chart */}
-        <div className="card chart-card">
+        <div className="card_con chart-card">
           <h2>🏬 Warehouses</h2>
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
