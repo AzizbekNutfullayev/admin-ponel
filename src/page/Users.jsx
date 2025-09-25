@@ -232,8 +232,8 @@ export default function Users() {
 
       {/* 🔹 Edit Modal */}
       {editUser && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="modal_user">
+          <div className="modal-content_user">
             <h3>✏️ Foydalanuvchini tahrirlash</h3>
             <input
               type="text"
@@ -281,7 +281,7 @@ export default function Users() {
               <option value="Faol">Faol</option>
               <option value="Nofaol">Nofaol</option>
             </select>
-            <div className="modal-actions">
+            <div className="modal-actions_user">
               <button onClick={updateUser} className="btn-user add">
                 💾 Saqlash
               </button>

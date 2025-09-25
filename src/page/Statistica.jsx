@@ -75,12 +75,12 @@ export default function Statistica() {
   }, []);
 
   return (
-    <div className="dashboard">
-      <h2 className="dashboard__title">📊 Statistika Paneli</h2>
+    <div className="dashboard_sta">
+      <h2 className="dashboard__title_sta">📊 Statistika Paneli</h2>
 
       <div className="charts-grid">
         {/* Transactions → Line */}
-        <div className="card">
+        <div className="card_line">
           <h3>Tranzaksiyalar</h3>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={statistics.transactions}>
@@ -94,7 +94,7 @@ export default function Statistica() {
         </div>
 
         {/* Top Sales → Pie */}
-        <div className="card">
+        <div className="card_sals">
           <h3>Top Mahsulotlar</h3>
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
@@ -115,7 +115,7 @@ export default function Statistica() {
         </div>
 
         {/* Companies → Bar */}
-        <div className="card">
+        <div className="card_bar">
           <h3>Kompaniyalar</h3>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={statistics.companies}>
@@ -129,7 +129,7 @@ export default function Statistica() {
         </div>
 
         {/* Users → Bar */}
-        <div className="card">
+        <div className="card_bar">
           <h3>Foydalanuvchilar</h3>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={statistics.users}>

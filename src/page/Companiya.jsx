@@ -146,8 +146,8 @@ const Companiya = () => {
       </div>
 
       {editCompany && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="modal_comp">
+          <div className="modal-content_comp">
             <h3>✏️ Kompaniyani tahrirlash</h3>
             <input
               type="text"
