@@ -27,7 +27,6 @@ import Product from "../page/Product";
 export default function Sidebar() {
   const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
 
   const menu = [
     { path: "dashboard", label: "Bosh Sahifa", icon: <HomeIcon size={20} /> },    
@@ -40,7 +39,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <div className={`sidebar ${collapsed ? "collapsed" : ""} ${darkMode ? "dark" : ""}`}>
+    <div className='sidebar '>
       {/* Header */}
       <div className="sidebar-header">
         {!collapsed && <h2 className="logo-text">Prody</h2>}

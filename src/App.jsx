@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Dashboard from './page/Dashboard';
 import Loyout from './components/Loyout';
@@ -13,7 +12,6 @@ import Login from './page/Login';
 import Product from './page/Product';
 
 export default function App() {
-  const [isAuthenticate, setIsAuthenticate] = useState(false);
 
   return (
     <div>
