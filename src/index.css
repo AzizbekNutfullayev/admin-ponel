@@ -208,147 +208,160 @@
 }
 
 /* header */
-
+/* 🔹 Umumiy container */
 .container_header {
   width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
+/* 🔹 Header */
 .app-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  color: black;
-  width: 100%;
-  position: relative;
-  z-index: 10;
+  justify-content: space-between;
+  height: 65px;
 }
 
+/* 🔹 Chap tomonda Admin */
 .header-left-header {
   display: flex;
   align-items: center;
   gap: 12px;
-  position: relative;
 }
 
 .admin-avatar-header {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   object-fit: cover;
+  border: 2px solid #e5e7eb;
+  transition: 0.3s;
+}
+
+.admin-avatar-header:hover {
+  transform: scale(1.05);
 }
 
 .admin-name-header {
-  font-weight: 600;
-  color: #1e293b;
-}
-
-.profile-toggle-header {
-  background: none;
-  border: none;
-  color: #1e293b;
   font-size: 16px;
-  cursor: pointer;
+  font-weight: 600;
+  color: #374151;
 }
 
-.profile-menu-header {
-  position: absolute;
-  top: 50px;
-  left: 0;
-  background: #334155;
-  border-radius: 8px;
-  overflow: hidden;
-  min-width: 140px;
-  z-index: 20;
-}
-
-.profile-item-header {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  background: none;
-  border: none;
-  text-align: left;
-  color: #fff;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.profile-item-header:hover {
-  background: #475569;
-}
-
-.profile-logout-header {
-  color: #f87171;
-}
-
+/* 🔹 O‘ng tomon (search + lang) */
 .header-right-header {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 20px;
 }
 
+/* 🔹 Search */
 .search-box-header input {
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid #cbd5e1;
-  outline: none;
+  padding: 8px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
   font-size: 14px;
+  width: 240px;
+  transition: 0.3s;
 }
 
+.search-box-header input:focus {
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* 🔹 Til almashtirish */
 .lang-switch-header {
   position: relative;
 }
 
 .lang-btn-header {
-  background: #3b82f6;
-  border: none;
-  color: white;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
+  background: #f9fafb;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px 12px;
   font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
+.lang-btn-header:hover {
+  background: #f3f4f6;
+}
+
+/* Dropdown */
 .lang-dropdown-header {
   position: absolute;
-  top: 40px;
+  top: 45px;
   right: 0;
-  background: #334155;
-  border-radius: 6px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   overflow: hidden;
-  z-index: 20;
+  animation: fadeIn 0.2s ease;
 }
 
 .lang-item-header {
   display: block;
-  padding: 8px 12px;
+  padding: 10px 14px;
+  background: white;
   border: none;
-  background: none;
-  color: white;
   text-align: left;
-  cursor: pointer;
+  width: 100%;
   font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.lang-item-header:hover,
-.active-header {
-  background: #3b82f6;
+.lang-item-header:hover {
+  background: #f3f4f6;
 }
 
-@media (max-width: 780px) {
+.lang-item-header.active-header {
+  background: #e0f2fe;
+  font-weight: 600;
+}
+
+/* 🔹 Animatsiya */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 🔹 Responsiv dizayn */
+@media (max-width: 992px) {
+  .search-box-header input {
+    width: 180px;
+  }
+}
+
+@media (max-width: 768px) {
   .app-header {
     flex-direction: column;
-    align-items: stretch;
+    align-items: flex-start;
     gap: 12px;
+    height: auto;
+    padding: 12px 0;
   }
 
   .header-right-header {
     width: 100%;
     justify-content: space-between;
-  }
-
-  .search-box-header {
-    flex: 1;
   }
 
   .search-box-header input {
@@ -358,42 +371,20 @@
 
 @media (max-width: 480px) {
   .admin-name-header {
-    display: none;
-  }
-
-  .app-header {
-    padding: 8px 12px;
-    gap: 10px;
-  }
-
-  .header-right-header {
-    justify-content: flex-start;
-    gap: 12px;
-    width: 100%;
+    display: none; /* faqat avatar qolsin */
   }
 
   .search-box-header input {
-    max-width: 180px;
-  }
-}
-
-@media (max-width: 350px) {
-  .app-header {
-    padding: 6px 8px;
-    gap: 8px;
-  }
-
-  .search-box-header input {
-    max-width: 120px;
     font-size: 12px;
-    padding: 4px 6px;
+    padding: 6px 10px;
   }
 
   .lang-btn-header {
-    padding: 4px 8px;
     font-size: 12px;
+    padding: 6px 8px;
   }
 }
+
 
 /* saide bar  */
 
