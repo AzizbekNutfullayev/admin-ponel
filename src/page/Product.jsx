@@ -83,15 +83,14 @@ const Product = () => {
     }
   };
 
-  // 🔹 PUT (to‘liq yangilash)
   const updateProduct = async (id) => {
     try {
       const product = products.find((p) => p.id === id);
       if (!product) return;
 
       const payload = {
-        ...product, // eski qiymatlar
-        ...form, // formdagi yangi qiymatlar
+        ...product, 
+        ...form,
         cost_price: Number(form.cost_price) || Number(product.cost_price) || 0,
         selling_price: Number(form.selling_price) || Number(product.selling_price) || 0,
         quantity: Number(form.quantity) || Number(product.quantity) || 0,

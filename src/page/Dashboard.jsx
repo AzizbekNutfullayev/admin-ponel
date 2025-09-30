@@ -11,8 +11,6 @@ const COLORS = ["#6366F1", "#22C55E", "#F59E0B", "#EF4444", "#0EA5E9"];
 export default function Dashboard() {
   const [transactions, setTransactions] = useState([]);
   const [topSales, setTopSales] = useState([]);
-  const [regions, setRegions] = useState([]);
-  const [months, setMonths] = useState([]);
   const [companies, setCompanies] = useState([]);
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
