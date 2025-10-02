@@ -13,15 +13,15 @@ export default function HelpCenter() {
 
   return (
     <div className="help-center">
-      <h2 className="title">How can we help you?</h2>
-      <div className="search-box">
+      <h2 className="title_help">How can we help you?</h2>
+      <div className="search_box_help">
         <input type="text" placeholder="Search" />
       </div>
 
-      <div className="cards">
+      <div className="cards_help">
         {cards.map((c, i) => (
-          <div key={i} className="card">
-            <div className="icon">{c.icon}</div>
+          <div key={i} className="card_help">
+            <div className="icon_help">{c.icon}</div>
             <h3>{c.title}</h3>
             <p>{c.desc}</p>
           </div>
